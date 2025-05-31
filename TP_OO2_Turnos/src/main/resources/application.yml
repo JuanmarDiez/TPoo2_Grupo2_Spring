@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: TP_OO2_Turnos
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      dialect: org.hibernate.dialect.MySQL5Dialect
+  thymeleaf:
+    cache: false
