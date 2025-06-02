@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.example.TP_OO2_Turnos.converters.UsuarioConverter;
+import com.example.TP_OO2_Turnos.entities.Cliente;
+import com.example.TP_OO2_Turnos.entities.Empleado;
 import com.example.TP_OO2_Turnos.entities.Usuario;
 import com.example.TP_OO2_Turnos.models.UsuarioModel;
 import com.example.TP_OO2_Turnos.repositories.IUsuarioRepository;
@@ -42,6 +44,21 @@ public class UsuarioService implements IUsuarioService {
 		}catch(Exception e){
 			return false;
 		}
+	}
+	
+	@Override
+	public Usuario findById(int id) throws Exception{
+		return usuarioRepository.findById(id);
+	}
+	
+	@Override
+	public Cliente findByNroCliente(int nroCliente) throws Exception{
+		return usuarioRepository.findByNroCliente(nroCliente);
+	}
+	
+	@Override
+	public Empleado findByLegajo(int legajo) throws Exception{
+		return usuarioRepository.findByLegajo(legajo);
 	}
 	
 }
