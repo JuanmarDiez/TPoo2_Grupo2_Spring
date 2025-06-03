@@ -2,6 +2,7 @@ package com.example.TP_OO2_Turnos.entities;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -36,7 +37,7 @@ public class Turno {
 	private Dia dia;
 	
 	@Column(name="hora")
-	private LocalDate hora;
+	private LocalTime hora;
 	
 	@Column(name="createdat")
 	@CreationTimestamp
@@ -48,7 +49,7 @@ public class Turno {
 	
 	public Turno() {}
 
-	public Turno(int id, Cliente cliente, Empleado empleado, Dia dia, LocalDate hora) {
+	public Turno(int id, Cliente cliente, Empleado empleado, Dia dia, LocalTime hora) {
 		super();
 		this.id = id;
 		this.cliente = cliente;
@@ -89,11 +90,11 @@ public class Turno {
 		this.dia = dia;
 	}
 
-	public LocalDate getHora() {
+	public LocalTime getHora() {
 		return hora;
 	}
 
-	public void setHora(LocalDate hora) {
+	public void setHora(LocalTime hora) {
 		this.hora = hora;
 	}
 
