@@ -1,6 +1,5 @@
 package com.example.TP_OO2_Turnos.entities;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 

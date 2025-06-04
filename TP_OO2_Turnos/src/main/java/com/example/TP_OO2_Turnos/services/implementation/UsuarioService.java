@@ -7,10 +7,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.example.TP_OO2_Turnos.converters.UsuarioConverter;
-import com.example.TP_OO2_Turnos.entities.Cliente;
-import com.example.TP_OO2_Turnos.entities.Empleado;
+
 import com.example.TP_OO2_Turnos.entities.Usuario;
-import com.example.TP_OO2_Turnos.models.UsuarioModel;
+
 import com.example.TP_OO2_Turnos.repositories.IUsuarioRepository;
 import com.example.TP_OO2_Turnos.services.IUsuarioService;
 
@@ -18,11 +17,11 @@ import com.example.TP_OO2_Turnos.services.IUsuarioService;
 public class UsuarioService implements IUsuarioService {
 	
 	@Autowired
-	@Qualifier("UsuarioRepository")
+	@Qualifier("usuarioRepository")
 	private IUsuarioRepository usuarioRepository;
 	
 	@Autowired
-	@Qualifier("UsuarioConverter")
+	@Qualifier("usuarioConverter")
 	private UsuarioConverter usuarioConverter;
 	
 	@Override
@@ -30,11 +29,6 @@ public class UsuarioService implements IUsuarioService {
 		return usuarioRepository.findAll();
 	}
 	
-	@Override
-	public UsuarioModel insertOrUpdate(UsuarioModel usuarioModel) {
-		Usuario usuario = usuarioRepository.save(usuarioConverter.modelToEntity(usuarioModel));
-		return usuarioConverter.entityToModel(usuario);
-	}
 	
 	@Override
 	public boolean remove(int id) {
@@ -51,14 +45,5 @@ public class UsuarioService implements IUsuarioService {
 		return usuarioRepository.findById(id);
 	}
 	
-	@Override
-	public Cliente findByNroCliente(int nroCliente) throws Exception{
-		return usuarioRepository.findByNroCliente(nroCliente);
-	}
-	
-	@Override
-	public Empleado findByLegajo(int legajo) throws Exception{
-		return usuarioRepository.findByLegajo(legajo);
-	}
 	
 }
