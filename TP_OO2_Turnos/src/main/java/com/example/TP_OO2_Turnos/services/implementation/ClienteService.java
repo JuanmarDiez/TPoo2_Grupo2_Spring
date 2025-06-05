@@ -32,6 +32,8 @@ public class ClienteService implements IClienteService {
 	
 	@Override
 	public ClienteModel insertOrUpdate(ClienteModel clienteModel) {
+		int siguienteNro = clienteRepository.obtenerSiguienteCodigo() + 1;
+		clienteModel.setNroCliente(siguienteNro);
 		Cliente cliente = clienteRepository.save(clienteConverter.modelToEntity(clienteModel));
 		return clienteConverter.entityToModel(cliente);
 	}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>disponibilidades</title>
+</head>
+<body>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Lugar</th>
+				<th>Servicio</th>
+				<th>Hora inicio</th>
+				<th>Hora fin</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="disponibilidad : ${disponibilidades}">
+				<td><span th:text="${disponibilidad.id}" /></td>
+				<td><span th:text="${disponibilidad.lugar.calle}" /></td>
+				<td><span th:text="${disponibilidad.servicio.nombreServicio}" /></td>
+				<td><span th:text="${disponibilidad.horaInicio}" /></td>
+				<td><span th:text="${disponibilidad.horaFin}" /></td>
+			</tr>
+		</tbody>		
+	</table>
+	<form action="#" th:action="@{/disponibilidades/}" th:object="${disponibilidad}" method="post">
+		<div>
+			<label for="lugares">Lugar:</label>
+				<div>
+					<select th:field="*{lugar}">
+						<option value="" th:text="'Seleccione un lugar'"></option>
+						<option th:each="lugar : ${lugares}" 
+							th:value="${lugar.id}"
+							th:text="${lugar.calle}"
+						/>													
+					</select>
+				</div>
+		</div>
+		<div>
+			<label for="servicios">Servicio:</label>
+				<div>
+					<select th:field="*{servicio}">
+						<option value="" th:text="'Seleccione un servicio'"></option>
+						<option th:each="servicio : ${servicios}" 
+							th:value="${servicio.id}"
+							th:text="${servicio.nombreServicio}"
+						/>													
+					</select>
+				</div>
+		</div>
+		
+		<p>Hora Inicio: <input type="time" th:field="*{horaInicio}" /></p>
+		<p>Hora fin: <input type="time" th:field="*{horaFin}" /></p>
+		
+		<div>
+			<label for="diasLaborales">Dias laborales</label>
+			<div>
+				<select th:field="*{diasLaborables}" multiple>
+					<option value="LUNES">Lunes</option>
+					<option value="MARTES">Martes</option>
+					<option value="MIERCOLES">Miercoles</option>
+					<option value="JUEVES">Jueves</option>
+					<option value="VIERNES">Viernes</option>
+					<option value="SABABADO">Sabado</option>
+					<option value="DOMINGO">Domingo</option>
+				</select>
+			</div>
+		</div>
+		<input type="submit" />
+	</form>
+
+</body>
+</html>

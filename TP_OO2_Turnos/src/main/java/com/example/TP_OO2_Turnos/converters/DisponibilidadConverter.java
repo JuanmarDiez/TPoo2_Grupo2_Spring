@@ -13,19 +13,19 @@ public class DisponibilidadConverter {
     public DisponibilidadModel entityToModel(Disponibilidad disponibilidad) {
         return new DisponibilidadModel(
             disponibilidad.getId(),
-            disponibilidad.getLugar().getId(),
-            disponibilidad.getServicio().getId(),
+            disponibilidad.getLugar(),
+            disponibilidad.getServicio(),
             disponibilidad.getHoraInicio(),
             disponibilidad.getHoraFin(),
             disponibilidad.getDiasLaborables()
         );
     }
 
-    public Disponibilidad modelToEntity(DisponibilidadModel model, Lugar lugar, Servicio servicio) {
+    public Disponibilidad modelToEntity(DisponibilidadModel model) {
         return new Disponibilidad(
             model.getId(),
-            lugar,
-            servicio,
+            model.getLugar(),
+            model.getServicio(),
             model.getHoraInicio(),
             model.getHoraFin(),
             model.getDiasLaborables()

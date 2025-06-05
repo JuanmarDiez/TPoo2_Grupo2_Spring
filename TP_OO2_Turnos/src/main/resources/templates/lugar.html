@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Lugares</title>
+</head>
+<body>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Calle</th>
+				<th>Localidad</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="lugar : ${lugares}">
+				<td><span th:text="${lugar.id}" /></td>
+				<td><span th:text="${lugar.calle}" /></td>
+				<td><span th:text="${lugar.localidad}" /></td>
+			</tr>
+		</tbody>		
+	</table>
+	<form action="#" th:action="@{/lugares/}" th:object="${lugar}" method="post">
+		<p>Calle: <input type="text" th:field="*{calle}" /></p>
+		<p>Localidad: <input type="text" th:field="*{localidad}" /></p>
+		<input type="submit" />
+	
+	</form>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Servicios</title>
+</head>
+<body>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Nro cliente</th>
+				<th>Nombre</th>
+				<th>Apellido</th>
+				<th>DNI</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="cliente : ${clientes}">
+				<td><span th:text="${cliente.nroCliente}" /></td>
+				<td><span th:text="${cliente.nombre}" /></td>
+				<td><span th:text="${cliente.apellido}" /></td>
+				<td><span th:text="${cliente.dni}" /></td>
+				<td><a href="#" title="Actualizar" ><button type="submit" class="btn btn-success">Modificar</button> </td>
+				<td><a href="#" title="Eliminar ${cliente.nombre}" ><button type="submit" class="btn btn-danger" onclick="if(!(confirm('¿Seguro que quieres elimiar el registro?'))) return flase">Eliminar</button> </td>
+			</tr>
+		</tbody>		
+	</table>
+	<form action="#" th:action="@{/clientes/}" th:object="${cliente}" method="post">
+		<p>Nombre: <input type="text" th:field="*{nombre}" /></p>
+		<p>Apellido: <input type="text" th:field="*{apellido}" /></p>
+		<p>DNI: <input type="number" th:field="*{dni}" /></p>
+		<p>Email: <input type="email" th:field="*{email}" /></p>
+		<p>Clave: <input type="password" th:field="*{clave}" /></p>
+		<input type="submit" />	
+	</form>
+	
+</body>
+</html>

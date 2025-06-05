@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import com.example.TP_OO2_Turnos.converters.EmpleadoConverter;
 
@@ -14,7 +15,7 @@ import com.example.TP_OO2_Turnos.repositories.IEmpleadoRepository;
 
 import com.example.TP_OO2_Turnos.services.IEmpleadoService;
 
-
+@Service("empleadoService")
 public class EmpleadoService implements IEmpleadoService {
 	
 	@Autowired
@@ -32,6 +33,8 @@ public class EmpleadoService implements IEmpleadoService {
 	
 	@Override
 	public EmpleadoModel insertOrUpdate(EmpleadoModel empleadoModel) {
+		int siguienteLeg = empleadoRepository.obtenerSiguienteCodigo() + 1;
+		empleadoModel.setLegajo(siguienteLeg);
 		Empleado empleado = empleadoRepository.save(empleadoConverter.modelToEntity(empleadoModel));
 		return empleadoConverter.entityToModel(empleado);
 	}

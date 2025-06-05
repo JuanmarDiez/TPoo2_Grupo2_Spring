@@ -26,7 +26,7 @@ public class Empleado extends Usuario {
 	private LocalDate fechaDeAlta;
 	
 	@Column(name="esActivo")
-	private boolean esActivo;
+	private boolean esActivo = true;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="empleado")
 	private List<Turno> turnos;

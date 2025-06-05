@@ -41,14 +41,8 @@ public class DisponibilidadService implements IDisponibilidadService {
     }
 
     @Override
-    public DisponibilidadModel insertOrUpdate(DisponibilidadModel disponibilidadModel) {
-        Lugar lugar = lugarRepository.findById(disponibilidadModel.getIdLugar());
-        Servicio servicio = servicioRepository.findById(disponibilidadModel.getIdServicio());
-        
-        Disponibilidad disponibilidad = disponibilidadConverter.modelToEntity(
-            disponibilidadModel, lugar, servicio);
-        
-        disponibilidad = disponibilidadRepository.save(disponibilidad);
+    public DisponibilidadModel insertOrUpdate(DisponibilidadModel disponibilidadModel) {        
+        Disponibilidad disponibilidad = disponibilidadRepository.save(disponibilidadConverter.modelToEntity(disponibilidadModel));
         return disponibilidadConverter.entityToModel(disponibilidad);
     }
 

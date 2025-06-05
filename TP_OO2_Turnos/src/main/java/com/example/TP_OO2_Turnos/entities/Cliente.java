@@ -9,16 +9,21 @@ import org.hibernate.annotations.UpdateTimestamp;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 
 @Entity
 @Table(name="cliente")
 @PrimaryKeyJoinColumn(name="usuario_id")
 public class Cliente extends Usuario {
 	
-	@Column(name="nroCliente")
+	@Column(name="nroCliente",nullable=false)
 	private int nroCliente;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="cliente")
