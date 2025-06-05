@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Servicios</title>
+<title>dias</title>
 </head>
 <body>
 
@@ -11,20 +11,31 @@
 			<tr>
 				<th>Id</th>
 				<th>Fecha</th>
-				<th>DuracionServicio</th>
+				<th>Id disponibilidad</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="servicio : ${servicios}">
-				<td><span th:text="${servicio.id}" /></td>
-				<td><span th:text="${servicio.nombreServicio}" /></td>
-				<td><span th:text="${servicio.duracionServicio}" /></td>
+			<tr th:each="dia : ${dias}">
+				<td><span th:text="${dia.id}" /></td>
+				<td><span th:text="${dia.fecha}" /></td>
+				<td><span th:text="${dia.disponibilidades.id}" /></td>
 			</tr>
 		</tbody>		
 	</table>
-	<form action="#" th:action="@{/servicios/}" th:object="${servicio}" method="post">
-		<p>NombreServicio: <input type="text" th:field="*{nombreServicio}" /></p>
-		<p>DuracionServicio: <input type="number" th:field="*{duracionServicio}" /></p>
+	<form action="#" th:action="@{/dias/}" th:object="${dia}" method="post">
+		<p>Fecha: <input type="date" th:field="*{fecha}" /></p>
+		<div>
+			<label for="disponibilidades">Disponibilidades:</label>
+				<div>
+					<select th:field="*{disponibilidades}">
+						<option value="" th:text="'Seleccione una disponibilidad'"></option>
+						<option th:each="disponibilidad : ${disponibilidades}" 
+							th:value="${disponibilidad.id}"
+							th:text="${disponibilidad.id}"
+						/>													
+					</select>
+				</div>
+		</div>
 		<input type="submit" />
 	
 	</form>

@@ -1,7 +1,10 @@
 package com.example.TP_OO2_Turnos.services.implementation;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +13,11 @@ import org.springframework.stereotype.Service;
 
 import com.example.TP_OO2_Turnos.converters.DiaConverter;
 import com.example.TP_OO2_Turnos.entities.Dia;
+import com.example.TP_OO2_Turnos.entities.Disponibilidad;
+import com.example.TP_OO2_Turnos.enums.DiaLaborable;
 import com.example.TP_OO2_Turnos.models.DiaModel;
 import com.example.TP_OO2_Turnos.repositories.IDiaRepository;
+import com.example.TP_OO2_Turnos.repositories.IDisponibilidadRepository;
 import com.example.TP_OO2_Turnos.services.IDiaService;
 
 @Service("diaService")
@@ -20,6 +26,10 @@ public class DiaService implements IDiaService {
     @Autowired
     @Qualifier("diaRepository")
     private IDiaRepository diaRepository;
+    
+    @Autowired
+    @Qualifier("disponibilidadRepository")
+    private IDisponibilidadRepository disponibilidadRepository;
 
     @Autowired
     @Qualifier("diaConverter")
@@ -59,4 +69,8 @@ public class DiaService implements IDiaService {
                 .map(dia -> diaConverter.entityToModel(dia))
                 .collect(Collectors.toList());
     }
+    
+
+    
 }
+    

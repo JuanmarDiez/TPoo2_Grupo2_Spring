@@ -9,7 +9,7 @@ import com.example.TP_OO2_Turnos.models.DiaModel;
 public class DiaConverter {
 
     public DiaModel entityToModel(Dia dia) {
-        return new DiaModel(dia.getId(), dia.getFecha());
+        return new DiaModel(dia.getId(), dia.getFecha(), dia.getDisponibilidades());
     }
 
     public Dia modelToEntity(DiaModel model) {

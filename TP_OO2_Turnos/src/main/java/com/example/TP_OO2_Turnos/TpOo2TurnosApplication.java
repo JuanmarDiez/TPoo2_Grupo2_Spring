@@ -9,5 +9,4 @@ public class TpOo2TurnosApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TpOo2TurnosApplication.class, args);
 	}
-
 }
