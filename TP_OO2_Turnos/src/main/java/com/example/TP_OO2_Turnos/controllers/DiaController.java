@@ -1,17 +1,22 @@
 package com.example.TP_OO2_Turnos.controllers;
 
+import java.beans.PropertyEditorSupport;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.example.TP_OO2_Turnos.entities.Disponibilidad;
 import com.example.TP_OO2_Turnos.enums.DiaLaborable;
 import com.example.TP_OO2_Turnos.models.DiaModel;
 import com.example.TP_OO2_Turnos.models.DisponibilidadModel;
@@ -31,6 +36,17 @@ public class DiaController {
 	@Qualifier("disponibilidadService")
 	private IDisponibilidadService disponibilidadService;
 	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+	    binder.registerCustomEditor(Disponibilidad.class, new PropertyEditorSupport() {
+	        @Override
+	        public void setAsText(String id) {
+
+	            Disponibilidad d = disponibilidadService.findById(Integer.parseInt(id));
+	            setValue(d);
+	        }
+	    });
+	}
 	
 	@GetMapping("/")
 	public ModelAndView index() {
@@ -42,11 +58,8 @@ public class DiaController {
 	}
 	
 	@PostMapping("/")
-	public RedirectView create(@ModelAttribute("dia") DiaModel diaModel) {
-		DiaLaborable diaSemanaEnum = DiaLaborable.valueOf(diaModel.getFecha().getDayOfWeek().name());
-		if(diaModel.getDisponibilidades().stream().filter(d -> d.getDiasLaborables().contains(diaSemanaEnum)).collect(Collectors.toList()) != null) {
+	public RedirectView create(@ModelAttribute("dia") DiaModel diaModel) {	
 		diaService.insertOrUpdate(diaModel);
-		}
 		return new RedirectView("/dias/");
 	}
 }

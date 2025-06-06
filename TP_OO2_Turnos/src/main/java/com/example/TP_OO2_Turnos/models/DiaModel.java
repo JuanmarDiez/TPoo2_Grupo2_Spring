@@ -10,38 +10,41 @@ public class DiaModel {
 
     private int id;
     private LocalDate fecha;
-    private Set<Disponibilidad> disponibilidades;
+    
+    private Disponibilidad disponibilidad;
 
     public DiaModel() {}
 
-    public DiaModel(int id, LocalDate fecha, Set<Disponibilidad> disponibilidades) {
+    public DiaModel(int id, LocalDate fecha, Disponibilidad disponibilidad) {
         this.id = id;
         this.fecha = fecha;
-        this.disponibilidades=disponibilidades;
+        this.disponibilidad=disponibilidad;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public LocalDate getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-    }
-
-	public Set<Disponibilidad> getDisponibilidades() {
-		return disponibilidades;
+	public int getId() {
+		return id;
 	}
 
-	public void setDisponibilidades(Set<Disponibilidad> disponibilidades) {
-		this.disponibilidades = disponibilidades;
+	public void setId(int id) {
+		this.id = id;
 	}
+
+	public LocalDate getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(LocalDate fecha) {
+		this.fecha = fecha;
+	}
+
+	public Disponibilidad getDisponibilidad() {
+		return disponibilidad;
+	}
+
+	public void setDisponibilidad(Disponibilidad disponibilidad) {
+		this.disponibilidad = disponibilidad;
+	}
+
+    
     
 }

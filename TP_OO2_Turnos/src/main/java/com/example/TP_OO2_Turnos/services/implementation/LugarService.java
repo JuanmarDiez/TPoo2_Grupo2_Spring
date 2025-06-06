@@ -43,4 +43,9 @@ public class LugarService implements ILugarService {
             return false;
         }
     }
+
+	@Override
+	public Lugar findById(int id) {
+		return lugarRepository.findById(id);
+	}
 }

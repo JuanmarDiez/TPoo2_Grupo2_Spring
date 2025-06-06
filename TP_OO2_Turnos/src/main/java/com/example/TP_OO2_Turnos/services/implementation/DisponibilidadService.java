@@ -55,6 +55,11 @@ public class DisponibilidadService implements IDisponibilidadService {
             return false;
         }
     }
+    
+    @Override
+    public Disponibilidad findById(int id) {
+    	return disponibilidadRepository.findById(id);
+    }
 
     @Override
     public List<Disponibilidad> findByLugarId(int lugarId) {

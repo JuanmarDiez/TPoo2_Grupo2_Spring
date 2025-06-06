@@ -15,6 +15,8 @@ public interface IDiaService {
     
     public boolean remove(int id);
     
+    public Dia findById(int id);
+    
     public DiaModel findByFecha(LocalDate fecha);
     
     public List<DiaModel> findByFechaBetween(LocalDate inicio, LocalDate fin);

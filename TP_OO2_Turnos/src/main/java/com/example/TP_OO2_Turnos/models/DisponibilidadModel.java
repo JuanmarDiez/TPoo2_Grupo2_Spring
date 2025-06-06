@@ -1,10 +1,12 @@
 package com.example.TP_OO2_Turnos.models;
 
+import com.example.TP_OO2_Turnos.entities.Dia;
 import com.example.TP_OO2_Turnos.entities.Lugar;
 import com.example.TP_OO2_Turnos.entities.Servicio;
 import com.example.TP_OO2_Turnos.enums.DiaLaborable;
 
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Set;
 
 public class DisponibilidadModel {
@@ -15,6 +17,7 @@ public class DisponibilidadModel {
     private LocalTime horaInicio;
     private LocalTime horaFin;
     private Set<DiaLaborable> diasLaborables;
+    private List<Dia> dias;
 
     public DisponibilidadModel() {}
 
@@ -74,4 +77,13 @@ public class DisponibilidadModel {
     public void setDiasLaborables(Set<DiaLaborable> diasLaborables) {
         this.diasLaborables = diasLaborables;
     }
+
+	public List<Dia> getDias() {
+		return dias;
+	}
+
+	public void setDias(List<Dia> dias) {
+		this.dias = dias;
+	}
+    
 }

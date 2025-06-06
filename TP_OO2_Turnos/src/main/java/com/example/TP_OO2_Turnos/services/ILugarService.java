@@ -12,4 +12,6 @@ public interface ILugarService {
     public LugarModel insertOrUpdate(LugarModel lugarModel);
     
     public boolean remove(int id);
+    
+    public Lugar findById(int id);
 }

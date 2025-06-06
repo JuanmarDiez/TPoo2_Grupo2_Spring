@@ -10,12 +10,12 @@ public class TurnoModel {
 	private int id;
 	private Cliente cliente;
 	private Empleado empleado;
-	private Dia dia;
+	private int dia;
 	private LocalTime hora;
 	
 	public TurnoModel() {}
 
-	public TurnoModel(int id,Cliente cliente, Empleado empleado, Dia dia, LocalTime hora) {
+	public TurnoModel(int id,Cliente cliente, Empleado empleado, int dia, LocalTime hora) {
 		super();
 		this.id=id;
 		this.cliente = cliente;
@@ -48,11 +48,11 @@ public class TurnoModel {
 		this.empleado = empleado;
 	}
 
-	public Dia getDia() {
+	public int getDia() {
 		return dia;
 	}
 
-	public void setDia(Dia dia) {
+	public void setDia(int dia) {
 		this.dia = dia;
 	}
 
