@@ -45,5 +45,10 @@ public class UsuarioService implements IUsuarioService {
 		return usuarioRepository.findById(id);
 	}
 	
+    @Override
+    public Usuario login(String email, String clave) {
+        return usuarioRepository.findByEmailAndClave(email, clave);
+    }
+	
 	
 }

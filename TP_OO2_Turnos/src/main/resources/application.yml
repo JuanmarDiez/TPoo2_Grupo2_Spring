@@ -13,3 +13,9 @@ spring:
       dialect: org.hibernate.dialect.MySQL5Dialect
   thymeleaf:
     cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+server:
+  port: 8080
