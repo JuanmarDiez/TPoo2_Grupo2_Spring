@@ -12,22 +12,19 @@ public class Dia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "fecha", nullable = false, unique = true)
+    @Column(name = "fecha", nullable = false)
     private LocalDate fecha;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-        name = "disponibilidad_dia",
-        joinColumns = @JoinColumn(name = "dia_id"),
-        inverseJoinColumns = @JoinColumn(name = "disponibilidad_id")
-    )
-    private Set<Disponibilidad> disponibilidades;
+    @ManyToOne
+    @JoinColumn(name = "disponibilidad_id", nullable = false)
+    private Disponibilidad disponibilidad;
 
     public Dia() {}
 
-    public Dia(int id, LocalDate fecha) {
+    public Dia(int id, LocalDate fecha,Disponibilidad disponibilidad) {
         this.id = id;
         this.fecha = fecha;
+        this.disponibilidad=disponibilidad;
     }
 
     public int getId() {
@@ -46,11 +43,11 @@ public class Dia {
         this.fecha = fecha;
     }
 
-    public Set<Disponibilidad> getDisponibilidades() {
-        return disponibilidades;
+    public Disponibilidad getDisponibilidad() {
+        return disponibilidad;
     }
 
-    public void setDisponibilidades(Set<Disponibilidad> disponibilidades) {
-        this.disponibilidades = disponibilidades;
+    public void setDisponibilidad(Disponibilidad disponibilidad) {
+        this.disponibilidad = disponibilidad;
     }
 }

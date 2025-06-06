@@ -13,7 +13,7 @@ import com.example.TP_OO2_Turnos.entities.Dia;
 
 @Repository("diaRepository")
 public interface IDiaRepository extends JpaRepository<Dia, Serializable> {
-    public abstract Optional<Dia> findById(int id);
+    public abstract Dia findById(int id);
     public abstract Dia findByFecha(LocalDate fecha);
     public abstract List<Dia> findByFechaBetween(LocalDate inicio, LocalDate fin);
 	

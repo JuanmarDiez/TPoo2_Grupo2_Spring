@@ -4,6 +4,7 @@ import com.example.TP_OO2_Turnos.enums.DiaLaborable;
 import jakarta.persistence.*;
 
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -34,8 +35,8 @@ public class Disponibilidad {
     @Column(name = "dia_laborable")
     private Set<DiaLaborable> diasLaborables;
 
-    @ManyToMany(mappedBy = "disponibilidades")
-    private Set<Dia> dias;
+    @OneToMany(mappedBy = "disponibilidad", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Dia> dias;
 
     public Disponibilidad() {}
 
@@ -96,11 +97,11 @@ public class Disponibilidad {
         this.diasLaborables = diasLaborables;
     }
 
-    public Set<Dia> getDias() {
+    public List<Dia> getDias() {
         return dias;
     }
 
-    public void setDias(Set<Dia> dias) {
+    public void setDias(List<Dia> dias) {
         this.dias = dias;
     }
 }

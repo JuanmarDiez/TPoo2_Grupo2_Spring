@@ -13,8 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.example.TP_OO2_Turnos.entities.Dia;
+import com.example.TP_OO2_Turnos.entities.Disponibilidad;
+import com.example.TP_OO2_Turnos.models.DiaModel;
 import com.example.TP_OO2_Turnos.models.TurnoModel;
 import com.example.TP_OO2_Turnos.services.IClienteService;
 import com.example.TP_OO2_Turnos.services.IDiaService;
@@ -23,9 +27,8 @@ import com.example.TP_OO2_Turnos.services.IEmpleadoService;
 import com.example.TP_OO2_Turnos.services.ITurnoService;
 
 @Controller
-@RequestMapping("/turno")
-public class TurnoController {
-	
+@RequestMapping("/generarTurno")
+public class GenerarTurnoController {
 	@Autowired
 	@Qualifier("turnoService")
 	private ITurnoService turnoService;
@@ -48,34 +51,33 @@ public class TurnoController {
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-	    binder.registerCustomEditor(Dia.class, new PropertyEditorSupport() {
+	    binder.registerCustomEditor(Disponibilidad.class, new PropertyEditorSupport() {
 	        @Override
-	        public void setAsText(String text) {
-	            if (text != null && !text.isEmpty()) {
-	                Dia dia = diaService.findById(Integer.parseInt(text));
-	                setValue(dia);
-	            } else {
-	                setValue(null);
-	            }
+	        public void setAsText(String id) {
+
+	            Disponibilidad d = disponibilidadService.findById(Integer.parseInt(id));
+	            setValue(d);
 	        }
 	    });
 	}
 	
-	@GetMapping("/turnos")
-	public ModelAndView turno(@RequestParam("diaId") int diaId) {
-		ModelAndView mav = new ModelAndView("turno/turno");
-		mav.addObject("dia", diaService.findById(diaId));
-		mav.addObject("empleados",empleadoService.getAll());
-		mav.addObject("clientes",clienteService.getAll());
-		mav.addObject("turno",new TurnoModel());
-		
+	
+	
+	@GetMapping("/elegirDia")
+	public ModelAndView elegirDia() {
+		ModelAndView mav = new ModelAndView("turno/dia");
+		mav.addObject("dias", diaService.getAll());
+		mav.addObject("disponibilidades",disponibilidadService.getAll());
+		mav.addObject("dia",new DiaModel());
 		return mav;
 	}
 	
-	@PostMapping("/turnos")
-	public String createTurno(@ModelAttribute("turno") TurnoModel turnoModel) {
-		System.out.println("---------DIA ID-----------" + turnoModel.getDia());
-		turnoService.insertOrUpdate(turnoModel);
-		return "redirect:/home";
+	@PostMapping("/elegirDia")
+	public String createDia(@ModelAttribute("dia") DiaModel diaModel,RedirectAttributes redirectAttributes) {	
+		diaModel = diaService.insertOrUpdate(diaModel);
+		redirectAttributes.addAttribute("diaId", diaModel.getId());
+		return "redirect:/turno/turnos";
 	}
+	
+
 }

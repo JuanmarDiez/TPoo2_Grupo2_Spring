@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>dias</title>
+</head>
+<body>
+
+	<form action="#" th:action="@{/generarTurno/elegirDia}" th:object="${dia}" method="post">
+		<p>Fecha: <input type="date" th:field="*{fecha}" /></p>
+		<div>
+			<label for="disponibilidades">Disponibilidades:</label>
+				<div>
+					<select th:field="*{disponibilidad}">
+						<option value="" th:text="'Seleccione un local y una direccion'"></option>
+						<option th:each="disponibilidad : ${disponibilidades}" 
+							th:value="${disponibilidad.id}"
+							th:text="${disponibilidad.servicio.nombreServicio +' - '+ disponibilidad.lugar.calle}"
+						/>													
+					</select>
+				</div>
+		</div>
+		<input type="submit" />
+	
+	</form>
+
+</body>
+</html>

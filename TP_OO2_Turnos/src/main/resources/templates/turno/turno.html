@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Servicios</title>
+</head>
+<body>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Empleado</th>
+				<th>Cliente</th>
+				<th>Lugar</th>
+				<th>Servicio</th>
+				<th>Fecha</th>
+				<th>Hora</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="turno : ${turnos}">
+				<td><span th:text="${turno.id}" /></td>
+				<td><span th:text="${turno.empleado.apellido}" /></td>
+				<td><span th:text="${turno.dia.disponibilidad.lugar.calle}" /></td>
+				<td><span th:text="${turno.dia.disponibilidad.servicio.nombreServicio}" /></td>
+				<td><span th:text="${turno.dia.fecha}" /></td>
+				<td><span th:text="${turno.hora}" /></td>
+			</tr>
+		</tbody>		
+	</table>
+	<form action="#" th:action="@{/turno/turnos}" th:object="${turno}" method="post">
+	
+		
+		<p>Hora: <input type="time" th:field="*{hora}" /></p>
+		<div>
+			<label for="empleados">Empleado:</label>
+				<div>
+					<select th:field="*{empleado}">
+						<option value="" th:text="'Seleccione un empleado'"></option>
+						<option th:each="empleado : ${empleados}" 
+							th:value="${empleado.id}"
+							th:text="${empleado.apellido}"
+						/>													
+					</select>
+				</div>
+		</div>
+		<div>
+			<label for="clientes">Cliente:</label>
+				<div>
+					<select th:field="*{cliente}">
+						<option value="" th:text="'Seleccione un cliente'"></option>
+						<option th:each="cliente : ${clientes}" 
+							th:value="${cliente.id}"
+							th:text="${cliente.apellido}"
+						/>													
+					</select>
+				</div>
+		</div>
+		<input type="hidden" name="dia" th:value="${dia.id}" />
+		<input type="submit" />
+	
+	</form>
+
+</body>
+</html>
