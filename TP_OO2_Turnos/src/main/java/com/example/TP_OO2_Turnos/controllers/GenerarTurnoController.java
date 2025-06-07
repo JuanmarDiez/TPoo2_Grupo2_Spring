@@ -76,6 +76,7 @@ public class GenerarTurnoController {
 	public String createDia(@ModelAttribute("dia") DiaModel diaModel,RedirectAttributes redirectAttributes) {	
 		diaModel = diaService.insertOrUpdate(diaModel);
 		redirectAttributes.addAttribute("diaId", diaModel.getId());
+
 		return "redirect:/generarTurno/turnos";
 	}
 	
@@ -95,5 +96,4 @@ public class GenerarTurnoController {
 		turnoService.insertOrUpdate(turnoModel);
 		return "redirect:/index";
 	}
-
 }
