@@ -10,4 +10,4 @@
     - EMAIL_USER = email de donde se va a mandar el email<br>
     - EMAIL_PASSWORD = contraseña del del email de donde se va a mandar el email<br>
     - EMAIL_RECEIVER = email donde recibira el email de confirmacion<br>
--El archivo al iniciar crea automaticamente las tablas y añade varios usuario precargados, PRECAUCION, cada vez que se inicia la aplicacion se vuelven a crear, comentar la insercion de usuarios una vez creados en la clase TpOo2TurnosApplication.java
+- El archivo al iniciar crea automaticamente las tablas y añade varios usuario precargados, PRECAUCION, cada vez que se inicia la aplicacion se vuelven a crear, comentar la insercion de usuarios una vez creados en la clase TpOo2TurnosApplication.java
