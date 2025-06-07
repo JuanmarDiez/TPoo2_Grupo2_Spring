@@ -17,5 +17,14 @@ spring:
     suffix: .html
     mode: HTML
     encoding: UTF-8
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
 server:
   port: 8080
+email:
+  sender: ${EMAIL_USER}
+  password: ${EMAIL_PASSWORD}
+  receiver: ${EMAIL_RECEIVER}

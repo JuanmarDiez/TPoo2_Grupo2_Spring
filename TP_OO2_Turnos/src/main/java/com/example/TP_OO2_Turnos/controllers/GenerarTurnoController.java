@@ -4,6 +4,7 @@ import java.beans.PropertyEditorSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,16 +20,22 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.example.TP_OO2_Turnos.entities.Dia;
 import com.example.TP_OO2_Turnos.entities.Disponibilidad;
 import com.example.TP_OO2_Turnos.models.DiaModel;
+import com.example.TP_OO2_Turnos.models.EmailModel;
 import com.example.TP_OO2_Turnos.models.TurnoModel;
 import com.example.TP_OO2_Turnos.services.IClienteService;
 import com.example.TP_OO2_Turnos.services.IDiaService;
 import com.example.TP_OO2_Turnos.services.IDisponibilidadService;
+import com.example.TP_OO2_Turnos.services.IEmailService;
 import com.example.TP_OO2_Turnos.services.IEmpleadoService;
 import com.example.TP_OO2_Turnos.services.ITurnoService;
 
 @Controller
 @RequestMapping("/generarTurno")
 public class GenerarTurnoController {
+	
+	 @Value("${email.receiver}")
+	    private String[] emailReceiver;
+	
 	@Autowired
 	@Qualifier("turnoService")
 	private ITurnoService turnoService;
@@ -48,6 +55,10 @@ public class GenerarTurnoController {
 	@Autowired
 	@Qualifier("clienteService")
 	private IClienteService clienteService;
+	
+	@Autowired
+	@Qualifier("emailService")
+    private IEmailService emailService;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -92,8 +103,14 @@ public class GenerarTurnoController {
 	}
 	
 	@PostMapping("/turnos")
-	public String createTurno(@ModelAttribute("turno") TurnoModel turnoModel) {
+	public String createTurno(@ModelAttribute("turno") TurnoModel turnoModel, RedirectAttributes redirectAttributes) {
 		turnoService.insertOrUpdate(turnoModel);
-		return "redirect:/index";
+		EmailModel email = new EmailModel();
+		//emailReceiver[0] = "juanmartindiez59@gmail.com";
+		email.setToUser(emailReceiver);
+		email.setSubject("Confirmacion de creacion de turno");
+		email.setMessage("Confirmamos que tu turno para el dia " + diaService.findById(turnoModel.getDia()).getFecha()+ " a las " + turnoModel.getHora() + " ha sido realizado con exito");
+		emailService.sendEmail(email.getToUser(), email.getSubject(), email.getMessage());
+		return "/index";
 	}
 }
