@@ -5,31 +5,7 @@
 <title>Servicios</title>
 </head>
 <body>
-
-	<table>
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Empleado</th>
-				<th>Cliente</th>
-				<th>Lugar</th>
-				<th>Servicio</th>
-				<th>Fecha</th>
-				<th>Hora</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="turno : ${turnos}">
-				<td><span th:text="${turno.id}" /></td>
-				<td><span th:text="${turno.empleado.apellido}" /></td>
-				<td><span th:text="${turno.dia.disponibilidad.lugar.calle}" /></td>
-				<td><span th:text="${turno.dia.disponibilidad.servicio.nombreServicio}" /></td>
-				<td><span th:text="${turno.dia.fecha}" /></td>
-				<td><span th:text="${turno.hora}" /></td>
-			</tr>
-		</tbody>		
-	</table>
-	<form action="#" th:action="@{/turno/turnos}" th:object="${turno}" method="post">
+	<form action="#" th:action="@{/generarTurno/turnos}" th:object="${turno}" method="post">
 	
 		
 		<p>Hora: <input type="time" th:field="*{hora}" /></p>
