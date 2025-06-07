@@ -4,6 +4,10 @@
 - Crear la base de datos con: "create database {nombre}"
 - Abrir una terminal y ejecutar "mvn clean install" en la direccion del proyecto para asegurarse que las dependencias se instalen correctamente
 - Configurar las variables de entorno para que el archivo application.yml las reconozca<br>
-    - {DB_URL} = URL de la base de datos <br>
-    - {DB_USERNAME} = usuario de la base de datos <br>
-    - {DB_PASSWORD} = contraseña de la base de datos <br>
+    - DB_URL = URL de la base de datos <br>
+    - DB_USERNAME = usuario de la base de datos <br>
+    - DB_PASSWORD = contraseña de la base de datos <br>
+    - EMAIL_USER = email de donde se va a mandar el email<br>
+    - EMAIL_PASSWORD = contraseña del del email de donde se va a mandar el email<br>
+    - EMAIL_RECEIVER = email donde recibira el email de confirmacion<br>
+-El archivo al iniciar crea automaticamente las tablas y añade varios usuario precargados, PRECAUCION, cada vez que se inicia la aplicacion se vuelven a crear, comentar la insercion de usuarios una vez creados en la clase TpOo2TurnosApplication.java
