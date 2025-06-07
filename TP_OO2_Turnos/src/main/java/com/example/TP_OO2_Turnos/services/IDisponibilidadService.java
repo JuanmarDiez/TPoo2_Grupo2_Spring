@@ -19,4 +19,5 @@ public interface IDisponibilidadService {
     public List<Disponibilidad> findByLugarId(int lugarId);
     
     public List<Disponibilidad> findByServicioId(int servicioId);
+        
 }

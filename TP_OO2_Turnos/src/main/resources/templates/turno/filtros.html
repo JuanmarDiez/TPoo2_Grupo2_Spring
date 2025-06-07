@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form th:action="@{/consultarTurnos/filtrar}" method="get">
+	
+	    <label for="servicio">Servicio:</label>
+	    <select name="servicioId">
+	        <option value="">Todos</option>
+	        <option th:each="s : ${servicios}"
+	                th:value="${s.id}"
+	                th:text="${s.nombreServicio}"></option>
+	    </select>
+
+	    <label for="lugar">Lugar:</label>
+		    <select name="lugarId">
+		        <option value="">Todos</option>
+		        <option th:each="l : ${lugares}"
+		                th:value="${l.id}"
+		                th:text="${l.calle +', '+l.localidad}"></option>
+	    	</select>
+	    	<label for="fechaInicio">Fecha Inicio:</label>
+    		<input type="date" name="fechaInicio" />
+
+    		<label for="fechaFin">Fecha Fin:</label>
+   			 <input type="date" name="fechaFin" />
+	    
+		<div>
+	    	<input type="submit" value="Filtrar"/>
+	    </div>
+	</form>
+	
+	<table>
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Empleado</th>
+				<th>Cliente</th>
+				<th>Hora</th>
+				<th>Fecha</th>
+				<th>Servicio</th>
+				<th>Lugar</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="turno : ${turnos}">
+				<td><span th:text="${turno.id}" /></td>
+				<td><span th:text="${turno.empleado.nombre +' '+turno.empleado.apellido}" /></td>
+				<td><span th:text="${turno.cliente.nombre +' '+turno.cliente.apellido}" /></td>
+				<td><span th:text="${turno.hora}" /></td>
+				<td><span th:text="${turno.dia.fecha}" /></td>
+				<td><span th:text="${turno.dia.disponibilidad.servicio.nombreServicio}" /></td>
+				<td><span th:text="${turno.dia.disponibilidad.lugar.calle +', '+turno.dia.disponibilidad.lugar.localidad}" /></td>
+
+			</tr>
+		</tbody>		
+	</table>
+</body>
+</html>

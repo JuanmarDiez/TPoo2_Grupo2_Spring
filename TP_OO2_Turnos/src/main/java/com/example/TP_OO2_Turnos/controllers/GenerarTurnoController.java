@@ -76,8 +76,24 @@ public class GenerarTurnoController {
 	public String createDia(@ModelAttribute("dia") DiaModel diaModel,RedirectAttributes redirectAttributes) {	
 		diaModel = diaService.insertOrUpdate(diaModel);
 		redirectAttributes.addAttribute("diaId", diaModel.getId());
-		return "redirect:/turno/turnos";
+
+		return "redirect:/generarTurno/turnos";
 	}
 	
-
+	@GetMapping("/turnos")
+	public ModelAndView turno(@RequestParam("diaId") int diaId) {
+		ModelAndView mav = new ModelAndView("turno/turno");
+		mav.addObject("dia", diaService.findById(diaId));
+		mav.addObject("empleados",empleadoService.getAll());
+		mav.addObject("clientes",clienteService.getAll());
+		mav.addObject("turno",new TurnoModel());
+		
+		return mav;
+	}
+	
+	@PostMapping("/turnos")
+	public String createTurno(@ModelAttribute("turno") TurnoModel turnoModel) {
+		turnoService.insertOrUpdate(turnoModel);
+		return "redirect:/index";
+	}
 }

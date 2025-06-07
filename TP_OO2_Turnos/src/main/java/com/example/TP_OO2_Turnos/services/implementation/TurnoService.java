@@ -1,5 +1,6 @@
 package com.example.TP_OO2_Turnos.services.implementation;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +42,25 @@ public class TurnoService implements ITurnoService {
 		}catch(Exception e) {
 			return false;
 		}
+	}
+	
+	@Override
+	public List<Turno> buscarPorLugarId(int lugarId){
+		return turnoRepository.findByLugarId(lugarId);
+	}
+    
+	@Override
+	public List<Turno> buscarPorServicioId(int servicioId){
+		return turnoRepository.findByServicioId(servicioId);
+	}
+
+	@Override
+	public List<Turno> buscarPorServicioIdAndLugarId(int servicioId, int lugarId) {
+		return turnoRepository.findByServicioIdAndLugarId(servicioId, lugarId);
+	}
+	
+	public List<Turno> filtrarTurnos(Integer servicioId, Integer lugarId, LocalDate fechaInicio, LocalDate fechaFin) {
+	    
+	    return turnoRepository.buscarFiltrado(servicioId, lugarId, fechaInicio, fechaFin);
 	}
 }
