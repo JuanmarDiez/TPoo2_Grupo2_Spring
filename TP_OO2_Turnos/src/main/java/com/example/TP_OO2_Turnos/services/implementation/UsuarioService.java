@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.TP_OO2_Turnos.converters.UsuarioConverter;
 
 import com.example.TP_OO2_Turnos.entities.Usuario;
-
+import com.example.TP_OO2_Turnos.exception.UnauthorizedException;
 import com.example.TP_OO2_Turnos.repositories.IUsuarioRepository;
 import com.example.TP_OO2_Turnos.services.IUsuarioService;
 
@@ -47,7 +47,7 @@ public class UsuarioService implements IUsuarioService {
 	
     @Override
     public Usuario login(String email, String clave) {
-        return usuarioRepository.findByEmailAndClave(email, clave);
+    	return usuarioRepository.findByEmailAndClave(email, clave); 	
     }
 	
 	

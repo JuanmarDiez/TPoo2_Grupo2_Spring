@@ -2,6 +2,7 @@ package com.example.TP_OO2_Turnos.repositories;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -34,4 +35,22 @@ public interface ITurnoRepository extends JpaRepository<Turno, Serializable> {
     	                            @Param("lugarId") Integer lugarId,
     	                            @Param("fechaInicio") LocalDate fechaInicio,
     	                            @Param("fechaFin") LocalDate fechaFin);
+    
+    @Query("""
+            SELECT t FROM Turno t
+            WHERE t.cliente.nroCliente = :nroCliente
+              AND t.empleado.legajo = :legajo
+              AND t.hora = :hora
+              AND t.dia.fecha = :fecha
+              AND t.dia.disponibilidad.servicio.id = :servicioId
+              AND t.dia.disponibilidad.lugar.id = :lugarId
+        """)
+    public abstract Turno findTurnoPorFiltros(
+            @Param("nroCliente") int nroCliente,
+            @Param("legajo") int legajo,
+            @Param("hora") LocalTime hora,
+            @Param("fecha") LocalDate fecha,
+            @Param("servicioId") int servicioId,
+            @Param("lugarId") int lugarId
+        );
 }

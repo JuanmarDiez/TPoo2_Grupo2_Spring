@@ -19,6 +19,8 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.example.TP_OO2_Turnos.entities.Dia;
 import com.example.TP_OO2_Turnos.entities.Disponibilidad;
+import com.example.TP_OO2_Turnos.entities.Turno;
+import com.example.TP_OO2_Turnos.exception.TurnoIgualException;
 import com.example.TP_OO2_Turnos.models.DiaModel;
 import com.example.TP_OO2_Turnos.models.EmailModel;
 import com.example.TP_OO2_Turnos.models.TurnoModel;
@@ -72,7 +74,7 @@ public class GenerarTurnoController {
 	    });
 	}
 	
-	
+
 	
 	@GetMapping("/elegirDia")
 	public ModelAndView elegirDia() {
@@ -104,13 +106,17 @@ public class GenerarTurnoController {
 	
 	@PostMapping("/turnos")
 	public String createTurno(@ModelAttribute("turno") TurnoModel turnoModel, RedirectAttributes redirectAttributes) {
+		Turno turnoAux = turnoService.buscarTurnoBD(turnoModel.getCliente().getNroCliente(), turnoModel.getEmpleado().getLegajo(), turnoModel.getHora(), diaService.findById(turnoModel.getDia()).getFecha(), diaService.findById(turnoModel.getDia()).getDisponibilidad().getServicio().getId(), diaService.findById(turnoModel.getDia()).getDisponibilidad().getServicio().getId());
+		if(turnoAux !=null) {
+			throw new TurnoIgualException("Ya existe un turno con esos detalles");
+		}else {
 		turnoService.insertOrUpdate(turnoModel);
 		EmailModel email = new EmailModel();
-		//emailReceiver[0] = "juanmartindiez59@gmail.com";
 		email.setToUser(emailReceiver);
 		email.setSubject("Confirmacion de creacion de turno");
 		email.setMessage("Confirmamos que tu turno para el dia " + diaService.findById(turnoModel.getDia()).getFecha()+ " a las " + turnoModel.getHora() + " ha sido realizado con exito");
 		emailService.sendEmail(email.getToUser(), email.getSubject(), email.getMessage());
 		return "/index";
+		}
 	}
 }

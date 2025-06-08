@@ -1,6 +1,7 @@
 package com.example.TP_OO2_Turnos.services;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import com.example.TP_OO2_Turnos.entities.Turno;
@@ -20,4 +21,6 @@ public interface ITurnoService {
 	public List<Turno> buscarPorServicioIdAndLugarId(int servicioId, int lugarId);
 	
 	public List<Turno> filtrarTurnos(Integer servicioId, Integer lugarId, LocalDate fechaInicio, LocalDate fechaFin);
+	
+	public Turno buscarTurnoBD(int nroCliente,int legajo, LocalTime hora, LocalDate fecha, int servicioId, int lugarId);
 }
