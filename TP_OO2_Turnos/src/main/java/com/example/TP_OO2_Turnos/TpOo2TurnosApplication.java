@@ -17,7 +17,6 @@ import com.example.TP_OO2_Turnos.entities.Empleado;
 import com.example.TP_OO2_Turnos.entities.Lugar;
 import com.example.TP_OO2_Turnos.entities.Servicio;
 import com.example.TP_OO2_Turnos.entities.Turno;
-import com.example.TP_OO2_Turnos.entities.Usuario;
 import com.example.TP_OO2_Turnos.enums.DiaLaborable;
 import com.example.TP_OO2_Turnos.repositories.IDiaRepository;
 import com.example.TP_OO2_Turnos.repositories.IDisponibilidadRepository;
@@ -32,7 +31,7 @@ public class TpOo2TurnosApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TpOo2TurnosApplication.class, args);
 	}
-	/*
+	
 	@Bean
     public CommandLineRunner loadData(IUsuarioRepository usuarioRepository,IServicioRepository servicioRepository,ILugarRepository lugarRepository,
     		IDisponibilidadRepository disponibilidadRepository,IDiaRepository diaRepository, ITurnoRepository turnoRepository) {
@@ -177,5 +176,5 @@ public class TpOo2TurnosApplication {
             turnoRepository.save(turno3);
         };
     }
-    */
+    
 }

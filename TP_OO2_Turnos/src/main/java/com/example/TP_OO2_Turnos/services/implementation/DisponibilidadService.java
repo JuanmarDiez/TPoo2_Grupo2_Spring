@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.TP_OO2_Turnos.converters.DisponibilidadConverter;
 import com.example.TP_OO2_Turnos.entities.Disponibilidad;
-import com.example.TP_OO2_Turnos.entities.Lugar;
-import com.example.TP_OO2_Turnos.entities.Servicio;
 import com.example.TP_OO2_Turnos.models.DisponibilidadModel;
 import com.example.TP_OO2_Turnos.repositories.IDisponibilidadRepository;
 import com.example.TP_OO2_Turnos.repositories.ILugarRepository;

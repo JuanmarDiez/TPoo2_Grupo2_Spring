@@ -11,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.example.TP_OO2_Turnos.models.DisponibilidadModel;
-import com.example.TP_OO2_Turnos.models.LugarModel;
 import com.example.TP_OO2_Turnos.services.IDisponibilidadService;
 import com.example.TP_OO2_Turnos.services.ILugarService;
 import com.example.TP_OO2_Turnos.services.IServicioService;

@@ -1,7 +1,6 @@
 package com.example.TP_OO2_Turnos.controllers;
 
 import java.beans.PropertyEditorSupport;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,18 +11,14 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.example.TP_OO2_Turnos.entities.Disponibilidad;
-import com.example.TP_OO2_Turnos.enums.DiaLaborable;
 import com.example.TP_OO2_Turnos.models.DiaModel;
-import com.example.TP_OO2_Turnos.models.DisponibilidadModel;
 import com.example.TP_OO2_Turnos.services.IDiaService;
 import com.example.TP_OO2_Turnos.services.IDisponibilidadService;
-import com.example.TP_OO2_Turnos.services.ILugarService;
-import com.example.TP_OO2_Turnos.services.IServicioService;
+
 
 @Controller
 @RequestMapping("/dias")

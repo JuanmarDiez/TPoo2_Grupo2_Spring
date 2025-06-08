@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.example.TP_OO2_Turnos.exception.TurnoIgualException;
-import com.example.TP_OO2_Turnos.exception.TurnoNotFoundException;
 import com.example.TP_OO2_Turnos.exception.UnauthorizedException;
 
 @ControllerAdvice
@@ -19,11 +18,6 @@ public class ExceptionController {
 				.body(e.getErrorMessage());
 	}
 	
-	@ExceptionHandler(value = {TurnoNotFoundException.class})
-	public ResponseEntity<Object> handlerNotFoundException(TurnoNotFoundException e){
-		return ResponseEntity.status(HttpStatus.NOT_FOUND)
-				.body(e.getErrorMessage());
-	}
 	
 	@ExceptionHandler(value = {TurnoIgualException.class})
 	public ResponseEntity<Object> handlerTurnoIgualException(TurnoIgualException e){

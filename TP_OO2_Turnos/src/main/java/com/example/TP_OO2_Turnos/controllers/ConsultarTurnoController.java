@@ -1,7 +1,6 @@
 package com.example.TP_OO2_Turnos.controllers;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +8,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.TP_OO2_Turnos.entities.Lugar;
-import com.example.TP_OO2_Turnos.entities.Servicio;
 import com.example.TP_OO2_Turnos.entities.Turno;
 import com.example.TP_OO2_Turnos.services.IClienteService;
 import com.example.TP_OO2_Turnos.services.IDiaService;

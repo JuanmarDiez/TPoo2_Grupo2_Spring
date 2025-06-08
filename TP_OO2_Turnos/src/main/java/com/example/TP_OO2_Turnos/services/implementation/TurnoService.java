@@ -6,12 +6,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.example.TP_OO2_Turnos.converters.TurnoConvert;
 import com.example.TP_OO2_Turnos.entities.Turno;
-import com.example.TP_OO2_Turnos.exception.TurnoNotFoundException;
 import com.example.TP_OO2_Turnos.models.TurnoModel;
 import com.example.TP_OO2_Turnos.repositories.ITurnoRepository;
 import com.example.TP_OO2_Turnos.services.ITurnoService;
@@ -49,30 +47,22 @@ public class TurnoService implements ITurnoService {
 	
 	@Override
 	public List<Turno> buscarPorLugarId(int lugarId){
-		List<Turno> turno = turnoRepository.findByLugarId(lugarId);
-		if(turno.isEmpty()) throw new TurnoNotFoundException("No existe ningun turno con esos detalles");
-		return turno;
+		return turnoRepository.findByLugarId(lugarId);
 	}
     
 	@Override
 	public List<Turno> buscarPorServicioId(int servicioId){
-		List<Turno> turno = turnoRepository.findByServicioId(servicioId);
-		if(turno.isEmpty()) throw new TurnoNotFoundException("No existe ningun turno con esos detalles");
-		return turno;
+		return turnoRepository.findByServicioId(servicioId);
 	}
 
 	@Override
 	public List<Turno> buscarPorServicioIdAndLugarId(int servicioId, int lugarId) {
-		List<Turno> turno = turnoRepository.findByServicioIdAndLugarId(servicioId, lugarId);
-		if(turno.isEmpty()) throw new TurnoNotFoundException("No existe ningun turno con esos detalles");
-		return turno;
+		return turnoRepository.findByServicioIdAndLugarId(servicioId, lugarId);
 	}
 	
 	public List<Turno> filtrarTurnos(Integer servicioId, Integer lugarId, LocalDate fechaInicio, LocalDate fechaFin) {
 	    
-		List<Turno> turno =  turnoRepository.buscarFiltrado(servicioId, lugarId, fechaInicio, fechaFin);
-		if(turno.isEmpty()) throw new TurnoNotFoundException("No existe ningun turno con esos detalles");
-		return turno;
+		return turnoRepository.buscarFiltrado(servicioId, lugarId, fechaInicio, fechaFin);
 	}
 	
 	public Turno buscarTurnoBD(int nroCliente,int legajo, LocalTime hora, LocalDate fecha, int servicioId, int lugarId) {

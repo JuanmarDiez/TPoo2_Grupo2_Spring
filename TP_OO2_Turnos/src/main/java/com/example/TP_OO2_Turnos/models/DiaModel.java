@@ -1,8 +1,6 @@
 package com.example.TP_OO2_Turnos.models;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Set;
 
 import com.example.TP_OO2_Turnos.entities.Disponibilidad;
 

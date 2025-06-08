@@ -2,7 +2,6 @@ package com.example.TP_OO2_Turnos.entities;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
-import java.util.Set;
 
 @Entity
 @Table(name = "dia")

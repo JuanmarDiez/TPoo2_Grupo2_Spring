@@ -3,7 +3,6 @@ package com.example.TP_OO2_Turnos.models;
 import java.time.LocalTime;
 
 import com.example.TP_OO2_Turnos.entities.Cliente;
-import com.example.TP_OO2_Turnos.entities.Dia;
 import com.example.TP_OO2_Turnos.entities.Empleado;
 
 public class TurnoModel {

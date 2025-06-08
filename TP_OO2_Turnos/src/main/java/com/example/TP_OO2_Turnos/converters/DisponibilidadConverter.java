@@ -3,8 +3,6 @@ package com.example.TP_OO2_Turnos.converters;
 import org.springframework.stereotype.Component;
 
 import com.example.TP_OO2_Turnos.entities.Disponibilidad;
-import com.example.TP_OO2_Turnos.entities.Lugar;
-import com.example.TP_OO2_Turnos.entities.Servicio;
 import com.example.TP_OO2_Turnos.models.DisponibilidadModel;
 
 @Component("disponibilidadConverter")
