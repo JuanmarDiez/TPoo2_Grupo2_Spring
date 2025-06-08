@@ -1,62 +1,125 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar Turnos | Sistema de Turnos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+	<link rel="stylesheet" th:href="@{/css/consultar-turnos.css}">
 </head>
 <body>
-	<form th:action="@{/consultarTurnos/filtrar}" method="get">
-	
-	    <label for="servicio">Servicio:</label>
-	    <select name="servicioId">
-	        <option value="">Todos</option>
-	        <option th:each="s : ${servicios}"
-	                th:value="${s.id}"
-	                th:text="${s.nombreServicio}"></option>
-	    </select>
+    <div class="container py-4">
+        <!-- Encabezado -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="page-title">
+                <i class="bi bi-calendar-check me-2"></i>Consultar Turnos
+            </h1>
+            <a href="/index" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Volver al inicio
+            </a>
+        </div>
 
-	    <label for="lugar">Lugar:</label>
-		    <select name="lugarId">
-		        <option value="">Todos</option>
-		        <option th:each="l : ${lugares}"
-		                th:value="${l.id}"
-		                th:text="${l.calle +', '+l.localidad}"></option>
-	    	</select>
-	    	<label for="fechaInicio">Fecha Inicio:</label>
-    		<input type="date" name="fechaInicio" />
+        <!-- Card de Filtros -->
+        <div class="card card-filter">
+            <div class="card-header bg-primary text-white">
+                <i class="bi bi-funnel"></i> Filtros de Búsqueda
+            </div>
+            <div class="card-body">
+                <form th:action="@{/consultarTurnos/filtrar}" method="get" class="row g-3">
+                    <div class="col-md-3">
+                        <label for="servicio" class="form-label">Servicio</label>
+                        <select name="servicioId" class="form-select">
+                            <option value="">Todos los servicios</option>
+                            <option th:each="s : ${servicios}"
+                                    th:value="${s.id}"
+                                    th:text="${s.nombreServicio}"></option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <label for="lugar" class="form-label">Lugar</label>
+                        <select name="lugarId" class="form-select">
+                            <option value="">Todos los lugares</option>
+                            <option th:each="l : ${lugares}"
+                                    th:value="${l.id}"
+                                    th:text="${l.calle +', '+l.localidad}"></option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <label for="fechaInicio" class="form-label">Fecha Inicio</label>
+                        <input type="date" name="fechaInicio" class="form-control" />
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <label for="fechaFin" class="form-label">Fecha Fin</label>
+                        <input type="date" name="fechaFin" class="form-control" />
+                    </div>
+                    
+                    <div class="col-12 text-end">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-filter"></i> Aplicar Filtros
+                        </button>
+                        <a th:href="@{/consultarTurnos/filtrar}" class="btn btn-outline-secondary ms-2">
+                            <i class="bi bi-arrow-counterclockwise"></i> Limpiar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
 
-    		<label for="fechaFin">Fecha Fin:</label>
-   			 <input type="date" name="fechaFin" />
-	    
-		<div>
-	    	<input type="submit" value="Filtrar"/>
-	    </div>
-	</form>
-	
-	<table>
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Empleado</th>
-				<th>Cliente</th>
-				<th>Hora</th>
-				<th>Fecha</th>
-				<th>Servicio</th>
-				<th>Lugar</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="turno : ${turnos}">
-				<td><span th:text="${turno.id}" /></td>
-				<td><span th:text="${turno.empleado.nombre +' '+turno.empleado.apellido}" /></td>
-				<td><span th:text="${turno.cliente.nombre +' '+turno.cliente.apellido}" /></td>
-				<td><span th:text="${turno.hora}" /></td>
-				<td><span th:text="${turno.dia.fecha}" /></td>
-				<td><span th:text="${turno.dia.disponibilidad.servicio.nombreServicio}" /></td>
-				<td><span th:text="${turno.dia.disponibilidad.lugar.calle +', '+turno.dia.disponibilidad.lugar.localidad}" /></td>
+        <!-- Resultados -->
+        <div class="table-container">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th><i class="bi bi-hash"></i> ID</th>
+                            <th><i class="bi bi-person-badge"></i> Empleado</th>
+                            <th><i class="bi bi-person"></i> Cliente</th>
+                            <th><i class="bi bi-clock"></i> Hora</th>
+                            <th><i class="bi bi-calendar"></i> Fecha</th>
+                            <th><i class="bi bi-tools"></i> Servicio</th>
+                            <th><i class="bi bi-geo-alt"></i> Lugar</th>
+                         <!--<th><i class="bi bi-activity"></i> Acciones</th>-->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="turno : ${turnos}">
+                            <td th:text="${turno.id}"></td>
+                            <td th:text="${turno.empleado.nombre +' '+turno.empleado.apellido}"></td>
+                            <td th:text="${turno.cliente.nombre +' '+turno.cliente.apellido}"></td>
+                            <td th:text="${turno.hora}"></td>
+                            <td th:text="${turno.dia.fecha}"></td>
+                            <td th:text="${turno.dia.disponibilidad.servicio.nombreServicio}"></td>
+                            <td th:text="${turno.dia.disponibilidad.lugar.calle +', '+turno.dia.disponibilidad.lugar.localidad}"></td>
+                            <!--<td>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-sm btn-outline-primary action-btn">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-warning action-btn">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger action-btn">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </td>-->
+                        </tr>
+                        <tr th:if="${turnos.empty}">
+                            <td colspan="8" class="text-center text-muted py-4">
+                                <i class="bi bi-exclamation-circle fs-4"></i>
+                                <p class="mb-0">No se encontraron turnos con los filtros aplicados</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
-			</tr>
-		</tbody>		
-	</table>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

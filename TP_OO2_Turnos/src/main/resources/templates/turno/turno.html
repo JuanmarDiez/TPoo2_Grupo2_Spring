@@ -1,44 +1,106 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Servicios</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar Turno | Sistema de Turnos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+	<link rel="stylesheet" th:href="@{/css/confirmar-Turno.css}">
 </head>
 <body>
+    <div class="container py-4">
+        <!-- Encabezado -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="page-title">
+                <i class="bi bi-calendar-check me-2"></i>Confirmar Turno
+            </h1>
+            <a th:href="@{/generarTurno/elegirDia}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Volver atrás
+            </a>
+        </div>
 
-	<form action="#" th:action="@{/generarTurno/turnos}" th:object="${turno}" method="post">
+        <!-- Resumen del turno -->
+        <div class="card resumen-card">
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-card-checklist"></i> Resumen del Turno</h5>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p class="mb-1"><strong>Fecha:</strong></p>
+                        <p th:text="${dia.fecha}"></p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="mb-1"><strong>Servicio:</strong></p>
+                        <p th:text="${dia.disponibilidad.servicio.nombreServicio}"></p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="mb-1"><strong>Lugar:</strong></p>
+                        <p th:text="${dia.disponibilidad.lugar.calle + ', ' + dia.disponibilidad.lugar.localidad}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-	
-		
-		<p>Hora: <input type="time" th:field="*{hora}" /></p>
-		<div>
-			<label for="empleados">Empleado:</label>
-				<div>
-					<select th:field="*{empleado}">
-						<option value="" th:text="'Seleccione un empleado'"></option>
-						<option th:each="empleado : ${empleados}" 
-							th:value="${empleado.id}"
-							th:text="${empleado.apellido}"
-						/>													
-					</select>
-				</div>
-		</div>
-		<div>
-			<label for="clientes">Cliente:</label>
-				<div>
-					<select th:field="*{cliente}">
-						<option value="" th:text="'Seleccione un cliente'"></option>
-						<option th:each="cliente : ${clientes}" 
-							th:value="${cliente.id}"
-							th:text="${cliente.apellido}"
-						/>													
-					</select>
-				</div>
-		</div>
-		<input type="hidden" name="dia" th:value="${dia.id}" />
-		<input type="submit" />
-	
-	</form>
+        <!-- Formulario -->
+        <div class="form-container">
+            <form th:action="@{/generarTurno/turnos}" th:object="${turno}" method="post">
+                <div class="row g-3 mb-4">
+                    <!-- Campo Hora -->
+                    <div class="col-md-6">
+                        <label for="hora" class="form-label">
+                            <i class="bi bi-clock"></i> Hora del Turno
+                        </label>
+                        <div class="time-input-container">
+                            <input type="time" class="form-control" id="hora" th:field="*{hora}" required>
+                        </div>
+                        <small class="text-muted">Seleccione una hora</small>
+                    </div>
+                    
+                    <!-- Campo Empleado -->
+                    <div class="col-md-6">
+                        <label for="empleado" class="form-label">
+                            <i class="bi bi-person-badge"></i> Empleado
+                        </label>
+                        <select class="form-select" id="empleado" th:field="*{empleado}" required>
+                            <option value="" disabled selected>Seleccione un empleado...</option>
+                            <option th:each="empleado : ${empleados}" 
+                                th:value="${empleado.id}"
+                                th:text="${empleado.apellido + ', ' + empleado.nombre}">
+                            </option>
+                        </select>
+                        <small class="text-muted">Profesional que atenderá el turno</small>
+                    </div>
+                    
+                    <!-- Campo Cliente -->
+                    <div class="col-md-6">
+                        <label for="cliente" class="form-label">
+                            <i class="bi bi-person"></i> Cliente
+                        </label>
+                        <select class="form-select" id="cliente" th:field="*{cliente}" required>
+                            <option value="" disabled selected>Seleccione un cliente...</option>
+                            <option th:each="cliente : ${clientes}" 
+                                th:value="${cliente.id}"
+                                th:text="${cliente.apellido + ', ' + cliente.nombre}">
+                            </option>
+                        </select>
+                        <small class="text-muted">Persona que recibirá el servicio</small>
+                    </div>
+                </div>
+                
+                <input type="hidden" name="dia" th:value="${dia.id}" />
+                
+                <div class="d-flex justify-content-between">
+                    <a th:href="@{/generarTurno/elegirDia}" class="btn btn-outline-secondary">
+                        <i class="bi bi-x-circle"></i> Cancelar
+                    </a>
+                    <button type="submit" class="btn btn-success btn-submit">
+                        <i class="bi bi-check-circle"></i> Confirmar Turno
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 
 </body>
 </html>
