@@ -10,7 +10,4 @@ import com.example.TP_OO2_Turnos.entities.Usuario;
 public interface IUsuarioRepository extends JpaRepository<Usuario, Serializable>{
 	
 	public abstract Usuario findById(int id);
-    public abstract Usuario findByEmailAndClave(String email, String clave);
-	
-	
 }

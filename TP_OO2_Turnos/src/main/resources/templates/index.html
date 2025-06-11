@@ -50,7 +50,9 @@
         
         <!-- Opción para cerrar sesión (opcional) -->
         <div class="text-center mt-5">
-            <a href="/login" class="text-muted">Cerrar sesión</a>
+            <form th:action="@{/logout}" method="post">
+			<input class="dropdown-item" style="cursor: pointer" type="submit" value="Logout" />
+		</form>
         </div>
     </div>
     

@@ -9,6 +9,5 @@ public interface IUsuarioService {
 	public List<Usuario> getAll();
 	public boolean remove(int id);
 	public Usuario findById(int id) throws Exception;
-    public Usuario login(String email, String clave);
 	
 }

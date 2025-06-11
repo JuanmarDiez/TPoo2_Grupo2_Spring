@@ -19,7 +19,7 @@ import jakarta.persistence.Table;
 @PrimaryKeyJoinColumn(name="usuario_id")
 public class Empleado extends Usuario {
 	
-	@Column(name="legajo")
+	@Column(name="legajo",nullable = false)
 	private int legajo;
 	
 	@Column(name="fechaDeAlta")
@@ -42,8 +42,8 @@ public class Empleado extends Usuario {
 	public Empleado() {
 	}
 
-	public Empleado(int id, String email, String clave, String nombre, String apellido, int dni, int legajo, LocalDate fechaDeAlta, boolean esActivo) {
-		super(id, email, clave, nombre, apellido, dni);
+	public Empleado(int id, String nombre, String apellido, int dni, int legajo, LocalDate fechaDeAlta, boolean esActivo, User user) {
+		super(id, nombre, apellido, dni, user);
 		this.legajo=legajo;
 		this.fechaDeAlta=fechaDeAlta;
 		this.esActivo=esActivo;

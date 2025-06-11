@@ -28,30 +28,6 @@ public class HomeController {
     @Qualifier("usuarioService")
     private IUsuarioService usuarioService;
     
-	
-	@GetMapping("/")
-	public RedirectView redirectToLogin() {
-		return new RedirectView("/login");
-	}
-	
-    @GetMapping("/login")
-    public String loginForm() {
-        return "login";
-    }
-    
-    @PostMapping("/login")
-    public String loginSubmit(@RequestParam String email, 
-                            @RequestParam String clave, 
-                            Model model) {
-        Usuario usuario = usuarioService.login(email, clave);
-        if (usuario != null) {
-            return "redirect:/index";
-        } else {
-        	throw new UnauthorizedException("Credenciales invalidas");
-            //model.addAttribute("error", "Credenciales inválidas");
-            //return "login";
-        }
-    }
     
     @GetMapping("/index")
     public String index() {
