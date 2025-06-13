@@ -19,10 +19,10 @@ public class UserController {
 	
 	@GetMapping("/logout")
 	public String logout(Model model) {
-		return "user/logout";
+		return "user/login";
 	}
 	
-	@GetMapping("/loginsucces")
+	@GetMapping("/loginsuccess")
 	public String loginCheck() {
 		return "redirect:/index";
 	}
