@@ -22,7 +22,7 @@ public class UserController {
 		return "user/logout";
 	}
 	
-	@GetMapping("/loginsucces")
+	@GetMapping("/loginsuccess")
 	public String loginCheck() {
 		return "redirect:/index";
 	}
