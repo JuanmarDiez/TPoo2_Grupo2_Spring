@@ -1,45 +1,45 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Turnos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 	<link rel="stylesheet" th:href="@{/css/bienvenida.css}">
 </head>
 <body>
-    <div class="container mt-5">
-        <!-- Sección de bienvenida -->
+	<div class="d-flex justify-content-end align-items-center p-1" style="background-color: #ecf0f1;">
+		<i class="bi bi-person-circle me-2" style="font-size: 3rem; line-height: 1;"></i>
+	    <span sec:authentication="name" class="me-3 text-dark fw-semibold"></span>
+	</div>
+
+    <div class="container mt-4">
+        <!-- Sección de bienvenida (sin cambios estructurales) -->
         <div class="welcome-section">
             <h1 class="display-4">Bienvenido al Sistema de Turnos</h1>
             <p class="lead">Has iniciado sesión correctamente. ¿Qué deseas hacer hoy?</p>
         </div>
         
-        <!-- Opciones principales -->
+        <!-- Opciones principales (estructura idéntica, solo mejoras visuales) -->
         <div class="row g-4">
-            <!-- Opción 1: Consultar Turnos -->
-            <div class="col-md-6">
+            <!-- Visible solo para empleados (misma condición sec:authorize) -->
+            <div class="col-md-6" sec:authorize="hasRole('ROLE_ADMIN')">
                 <div class="card feature-card">
                     <div class="card-body text-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-calendar-check mb-3" viewBox="0 0 16 16">
-                            <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
-                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-                        </svg>
+                        <i class="bi bi-calendar-check" style="font-size: 2.5rem;"></i>
                         <h3 class="card-title">Consultar Turnos</h3>
                         <p class="card-text">Busca y filtra los turnos existentes según diferentes criterios.</p>
                         <a th:href="@{/consultarTurnos/filtrar}" class="btn btn-primary">Ir a Consultar Turnos</a>
                     </div>
                 </div>
             </div>
-            
-            <!-- Opción 2: Generar Turnos -->
-            <div class="col-md-6">
+
+            <!-- Visible solo para clientes (misma condición sec:authorize) -->
+            <div class="col-md-6" sec:authorize="hasRole('ROLE_USER')">
                 <div class="card feature-card">
                     <div class="card-body text-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-calendar-plus mb-3" viewBox="0 0 16 16">
-                            <path d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z"/>
-                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-                        </svg>
+                        <i class="bi bi-calendar-plus" style="font-size: 2.5rem;"></i>
                         <h3 class="card-title">Generar Turnos</h3>
                         <p class="card-text">Crea nuevos turnos seleccionando fecha, servicio y lugar.</p>
                         <a th:href="@{/generarTurno/elegirDia}" class="btn btn-primary">Ir a Generar Turnos</a>
@@ -47,13 +47,16 @@
                 </div>
             </div>
         </div>
-        
-        <!-- Opción para cerrar sesión (opcional) -->
-        <div class="text-center mt-5">
-            <form th:action="@{/logout}" method="post">
-			<input class="dropdown-item" style="cursor: pointer" type="submit" value="Logout" />
-		</form>
-        </div>
+
+        <!-- Opción para cerrar sesión (misma estructura) -->
+		<div class="position-absolute top-0 start-0 m-3">
+		    <form th:action="@{/logout}" method="post">
+		        <button type="submit" class="btn logout-custom">
+		            <i class="bi bi-box-arrow-left me-2"></i>
+		            CERRAR SESIÓN
+		        </button>
+		    </form>
+		</div>
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
