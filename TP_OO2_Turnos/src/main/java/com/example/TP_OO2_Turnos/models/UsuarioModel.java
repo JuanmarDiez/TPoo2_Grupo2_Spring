@@ -1,17 +1,15 @@
 package com.example.TP_OO2_Turnos.models;
 
 
+import com.example.TP_OO2_Turnos.entities.User;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 
 public class UsuarioModel {
 	protected int id;
 	
-	@Email
-	protected String email;
-	
-	@Size(min=6)
-	protected String clave;
+	protected User user;
 	
 	@Size(min=4, max=12)
 	protected String nombre;
@@ -24,12 +22,11 @@ public class UsuarioModel {
 
 	public UsuarioModel() {}
 	
-	public UsuarioModel(int id,String email,String clave,String nombre,String apellido,int dni) {
+	public UsuarioModel(int id,String nombre,String apellido,int dni,User user) {
 		this.id = id;
-		this.email = email;
-		this.clave = clave;
 		this.nombre = nombre;
 		this.dni = dni;
+		this.user=user;
 	}
 
 	public int getId() {
@@ -40,20 +37,12 @@ public class UsuarioModel {
 		this.id = id;
 	}
 
-	public String getEmail() {
-		return email;
+	public User getUser() {
+		return user;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getClave() {
-		return clave;
-	}
-
-	public void setClave(String clave) {
-		this.clave = clave;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public String getNombre() {

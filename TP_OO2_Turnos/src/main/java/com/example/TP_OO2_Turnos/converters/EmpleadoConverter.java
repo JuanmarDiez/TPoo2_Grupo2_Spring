@@ -8,10 +8,10 @@ import com.example.TP_OO2_Turnos.models.EmpleadoModel;
 @Component("empleadoConverter")
 public class EmpleadoConverter {
 	public EmpleadoModel entityToModel(Empleado empleado) {
-		return new EmpleadoModel(empleado.getId(),empleado.getEmail(),empleado.getClave(),empleado.getNombre(),empleado.getApellido(),empleado.getDni(),empleado.getLegajo(),empleado.getFechaDeAlta(),empleado.isEsActivo());
+		return new EmpleadoModel(empleado.getId(),empleado.getNombre(),empleado.getApellido(),empleado.getDni(),empleado.getLegajo(),empleado.getFechaDeAlta(),empleado.isEsActivo(), empleado.getUser());
 	}
 	
 	public Empleado modelToEntity(EmpleadoModel empleadoModel) {
-		return new Empleado(empleadoModel.getId(),empleadoModel.getEmail(),empleadoModel.getClave(),empleadoModel.getNombre(),empleadoModel.getApellido(),empleadoModel.getDni(),empleadoModel.getLegajo(),empleadoModel.getFechaDeAlta(),empleadoModel.isEsActivo());
+		return new Empleado(empleadoModel.getId(), empleadoModel.getNombre(),empleadoModel.getApellido(),empleadoModel.getDni(),empleadoModel.getLegajo(),empleadoModel.getFechaDeAlta(),empleadoModel.isEsActivo(), empleadoModel.getUser());
 	}
 }

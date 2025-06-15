@@ -17,12 +17,16 @@ import com.example.TP_OO2_Turnos.entities.Empleado;
 import com.example.TP_OO2_Turnos.entities.Lugar;
 import com.example.TP_OO2_Turnos.entities.Servicio;
 import com.example.TP_OO2_Turnos.entities.Turno;
+import com.example.TP_OO2_Turnos.entities.User;
+import com.example.TP_OO2_Turnos.entities.UserRole;
 import com.example.TP_OO2_Turnos.enums.DiaLaborable;
 import com.example.TP_OO2_Turnos.repositories.IDiaRepository;
 import com.example.TP_OO2_Turnos.repositories.IDisponibilidadRepository;
 import com.example.TP_OO2_Turnos.repositories.ILugarRepository;
 import com.example.TP_OO2_Turnos.repositories.IServicioRepository;
 import com.example.TP_OO2_Turnos.repositories.ITurnoRepository;
+import com.example.TP_OO2_Turnos.repositories.IUserRepository;
+import com.example.TP_OO2_Turnos.repositories.IUserRoleRepository;
 import com.example.TP_OO2_Turnos.repositories.IUsuarioRepository;
 
 @SpringBootApplication
@@ -31,54 +35,120 @@ public class TpOo2TurnosApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TpOo2TurnosApplication.class, args);
 	}
-	
+
+	/*
 	@Bean
     public CommandLineRunner loadData(IUsuarioRepository usuarioRepository,IServicioRepository servicioRepository,ILugarRepository lugarRepository,
-    		IDisponibilidadRepository disponibilidadRepository,IDiaRepository diaRepository, ITurnoRepository turnoRepository) {
+    		IDisponibilidadRepository disponibilidadRepository,IDiaRepository diaRepository, ITurnoRepository turnoRepository, IUserRepository userRepository,
+    		IUserRoleRepository userRoleRepository) {
         return args -> {
+        	
+        	
             // Crear empleados de prueba
+        	User user1 = new User();
+        	 user1.setEmail("empleado1@empresa.com");
+             user1.setClave("$2a$10$Z1nZ4qyoC5MEIhGmZeHN5O/c0v.hC6FoWEic3oF.Fyc/QMFJTdOxu");
+             user1.setEnabled(true);
+             userRepository.save(user1);
+        	
+            
+            UserRole ur1 = new UserRole();
+            ur1.setRole("ROLE_ADMIN");
+            ur1.setUser(user1);
+            userRoleRepository.save(ur1);
+            
             Empleado empleado1 = new Empleado();
-            empleado1.setEmail("empleado1@empresa.com");
-            empleado1.setClave("1234");
             empleado1.setNombre("Juan");
             empleado1.setApellido("Perez");
             empleado1.setDni(12345678);
             empleado1.setLegajo(1001);
             empleado1.setFechaDeAlta(LocalDate.now());
             empleado1.setEsActivo(true);
+            empleado1.setUser(user1);
+            usuarioRepository.save(empleado1);
+            
+            user1.setUsuario(empleado1);
+            user1.getUserRoles().add(ur1);
+            userRepository.save(user1);
+            
+            
+            User user2 = new User();
+            user2.setEmail("empleado2@empresa.com");
+            user2.setClave("$2a$10$Z1nZ4qyoC5MEIhGmZeHN5O/c0v.hC6FoWEic3oF.Fyc/QMFJTdOxu");
+            user2.setEnabled(true);
+            userRepository.save(user2);
+            
+            
+            UserRole ur2 = new UserRole();
+            ur2.setRole("ROLE_ADMIN");
+            ur2.setUser(user2);
+            userRoleRepository.save(ur2);
             
             Empleado empleado2 = new Empleado();
-            empleado2.setEmail("empleado2@empresa.com");
-            empleado2.setClave("1234");
             empleado2.setNombre("Maria");
             empleado2.setApellido("Gomez");
             empleado2.setDni(23456789);
             empleado2.setLegajo(1002);
             empleado2.setFechaDeAlta(LocalDate.now());
             empleado2.setEsActivo(true);
+            empleado2.setUser(user2);
+            usuarioRepository.save(empleado2);
+            
+            user2.setUsuario(empleado2);
+            user2.getUserRoles().add(ur2);
+            userRepository.save(user2);
             
             // Crear clientes de prueba
+                       
+            User user3 = new User();
+            user3.setEmail("cliente1@gmail.com");
+            user3.setClave("$2a$10$Z1nZ4qyoC5MEIhGmZeHN5O/c0v.hC6FoWEic3oF.Fyc/QMFJTdOxu");
+            user3.setEnabled(true);          
+            userRepository.save(user3);
+           
+            UserRole ur3 = new UserRole();
+            ur3.setRole("ROLE_USER");
+            ur3.setUser(user3);
+            userRoleRepository.save(ur3);
+            
+    
             Cliente cliente1 = new Cliente();
-            cliente1.setEmail("cliente1@gmail.com");
-            cliente1.setClave("1234");
             cliente1.setNombre("Carlos");
             cliente1.setApellido("Lopez");
             cliente1.setDni(34567890);
             cliente1.setNroCliente(2001);
+            cliente1.setUser(user3);
+            usuarioRepository.save(cliente1);
+            
+            user3.setUsuario(cliente1);
+            user3.getUserRoles().add(ur3);
+            userRepository.save(user3);
+            
+            
+            User user4 = new User();
+            user4.setEmail("cliente2@gmail.com");
+            user4.setClave("$2a$10$Z1nZ4qyoC5MEIhGmZeHN5O/c0v.hC6FoWEic3oF.Fyc/QMFJTdOxu");
+            user4.setEnabled(true);
+            userRepository.save(user4);
+            
+            
+            UserRole ur4 = new UserRole();
+            ur4.setRole("ROLE_USER");
+            ur4.setUser(user4);
+            userRoleRepository.save(ur4);
             
             Cliente cliente2 = new Cliente();
-            cliente2.setEmail("cliente2@gmail.com");
-            cliente2.setClave("1234");
             cliente2.setNombre("Ana");
             cliente2.setApellido("Martinez");
             cliente2.setDni(45678901);
             cliente2.setNroCliente(2002);
-            
-            // Guardar usuarios
-            usuarioRepository.save(empleado1);
-            usuarioRepository.save(empleado2);
-            usuarioRepository.save(cliente1);
+            cliente2.setUser(user4);
             usuarioRepository.save(cliente2);
+            
+            user4.setUsuario(cliente2);
+            user4.getUserRoles().add(ur4);
+            userRepository.save(user4);
+	
             
           //crear Servicios de prueba
             Servicio servicio1 = new Servicio();
@@ -174,7 +244,9 @@ public class TpOo2TurnosApplication {
             turnoRepository.save(turno1);
             turnoRepository.save(turno2);
             turnoRepository.save(turno3);
+            
         };
     }
+    */
     
 }

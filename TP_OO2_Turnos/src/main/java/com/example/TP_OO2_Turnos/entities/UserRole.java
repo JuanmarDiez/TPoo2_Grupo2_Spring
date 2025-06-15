@@ -7,54 +7,44 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-
-
+import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@Table(name="Usuario")
-public class Usuario {
+@Table(name="user_role",uniqueConstraints=@UniqueConstraint(columnNames= {"role", "user_id"}))
+public class UserRole {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	protected int id;
+	private int id;
 	
-	@OneToOne
-	@JoinColumn(name = "user_id")
-	protected User user;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="user_id", nullable=false)
+	private User user;
 	
-	@Column(name="nombre")
-	protected String nombre;
-	
-	@Column(name="apellido")
-	protected String apellido;
-	
-	@Column(name="dni")
-	protected int dni; 
+	@Column(name="role", nullable=false)
+	private String role;
 	
 	@Column(name="createdat")
 	@CreationTimestamp
-	protected LocalDateTime createdAt;
+	private LocalDateTime createdAt;
 	
 	@Column(name="updatedat")
 	@UpdateTimestamp
-	protected LocalDateTime updatedAt;
+	private LocalDateTime updatedAt;
 	
-	public Usuario() {};
-
-	public Usuario(int id, String nombre, String apellido, int dni, User user) {
+	public UserRole() {}
+	
+	public UserRole(int id,User user, String role) {
 		this.id = id;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.dni = dni;
 		this.user = user;
+		this.role = role;
 	}
 
 	public int getId() {
@@ -65,8 +55,6 @@ public class Usuario {
 		this.id = id;
 	}
 
-	
-
 	public User getUser() {
 		return user;
 	}
@@ -75,28 +63,12 @@ public class Usuario {
 		this.user = user;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getRole() {
+		return role;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getApellido() {
-		return apellido;
-	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-
-	public int getDni() {
-		return dni;
-	}
-
-	public void setDni(int dni) {
-		this.dni = dni;
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	public LocalDateTime getCreatedAt() {
@@ -114,6 +86,7 @@ public class Usuario {
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+	
 	
 	
 }
