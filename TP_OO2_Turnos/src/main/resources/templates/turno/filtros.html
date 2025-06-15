@@ -94,7 +94,7 @@
                             <td th:text="${turno.dia.fecha}"></td>
                             <td th:text="${turno.dia.disponibilidad.servicio.nombreServicio}"></td>
                             <td th:text="${turno.dia.disponibilidad.lugar.calle +', '+turno.dia.disponibilidad.lugar.localidad}"></td>
-                            <!--<td>
+                            <td>
                                 <div class="d-flex gap-2">
                                     <button class="btn btn-sm btn-outline-primary action-btn">
                                         <i class="bi bi-eye"></i>
@@ -106,7 +106,7 @@
                                         <i class="bi bi-trash"></i>
                                     </button>
                                 </div>
-                            </td>-->
+                            </td>
                         </tr>
                         <tr th:if="${turnos.empty}">
                             <td colspan="8" class="text-center text-muted py-4">

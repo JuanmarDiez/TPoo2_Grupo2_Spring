@@ -1,14 +1,45 @@
-.feature-card {
-    transition: transform 0.3s, box-shadow 0.3s;
-    height: 100%;
-}
-.feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-}
-.welcome-section {
-    background-color: #f8f9fa;
-    border-radius: 10px;
-    padding: 2rem;
-    margin-bottom: 2rem;
-}
+body {
+            background-color: #f8f9fa;
+        }
+        .welcome-section {
+            background-color: #2c3e50;
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .feature-card {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            height: 100%;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        .card-body {
+            padding: 2rem;
+        }
+        .bi {
+            color: #3498db;
+            margin-bottom: 1rem;
+        }
+        .btn-primary {
+            background-color: #3498db;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+        }
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+        .logout-btn {
+            color: #7f8c8d;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .logout-btn:hover {
+            color: #e74c3c;
+        }
