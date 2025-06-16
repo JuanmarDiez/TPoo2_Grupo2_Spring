@@ -10,7 +10,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-
+import com.example.TP_OO2_Turnos.entities.Cliente;
+import com.example.TP_OO2_Turnos.entities.Dia;
+import com.example.TP_OO2_Turnos.entities.Empleado;
 import com.example.TP_OO2_Turnos.entities.Turno;
 
 @Repository("turnoRepository")
@@ -53,4 +55,7 @@ public interface ITurnoRepository extends JpaRepository<Turno, Serializable> {
             @Param("servicioId") int servicioId,
             @Param("lugarId") int lugarId
         );
+    // boolean existsByClienteAndEmpleadoAndDiaAndHora(Cliente cliente, Empleado empleado, Dia dia, LocalTime hora);
+    Turno findByClienteAndEmpleadoAndDiaAndHora(Cliente cliente, Empleado empleado, Dia dia, LocalTime hora);
+
 }

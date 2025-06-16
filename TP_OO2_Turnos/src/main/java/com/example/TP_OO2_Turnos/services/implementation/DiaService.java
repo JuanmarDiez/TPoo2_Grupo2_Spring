@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.TP_OO2_Turnos.converters.DiaConverter;
 import com.example.TP_OO2_Turnos.entities.Dia;
+import com.example.TP_OO2_Turnos.entities.Disponibilidad;
 import com.example.TP_OO2_Turnos.models.DiaModel;
 import com.example.TP_OO2_Turnos.repositories.IDiaRepository;
 import com.example.TP_OO2_Turnos.repositories.IDisponibilidadRepository;
@@ -70,6 +71,16 @@ public class DiaService implements IDiaService {
 		return diaRepository.findById(id);
 	}
     
+    public Dia registrarDiaSiNoExiste(LocalDate fecha, Disponibilidad disponibilidad) {
+        Dia dia = diaRepository.findByFechaAndDisponibilidad(fecha, disponibilidad);
+        if (dia == null) {
+            dia = new Dia();
+            dia.setFecha(fecha);
+            dia.setDisponibilidad(disponibilidad);
+            dia = diaRepository.save(dia);
+        }
+        return dia;
+    }
 
     
 }

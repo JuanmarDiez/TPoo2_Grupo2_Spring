@@ -48,4 +48,18 @@ public class LugarService implements ILugarService {
 	public Lugar findById(int id) {
 		return lugarRepository.findById(id);
 	}
+	
+	public Lugar registrarLugarSiNoExiste(String calle, String localidad) {
+	    Lugar lugar = lugarRepository.findByCalleAndLocalidad(calle, localidad);
+	    
+	    if (lugar == null) {
+	        lugar = new Lugar();
+	        lugar.setCalle(calle);
+	        lugar.setLocalidad(localidad);
+	        lugar = lugarRepository.save(lugar);
+	    }
+	    
+	    return lugar;
+	}
+
 }

@@ -10,4 +10,6 @@ import com.example.TP_OO2_Turnos.entities.Servicio;
 @Repository("servicioRepository")
 public interface IServicioRepository extends JpaRepository<Servicio, Serializable> {
     public abstract Servicio findById(int id);
+    boolean existsByNombreServicio(String nombreServicio);
+    Servicio findByNombreServicio(String nombreServicio);
 }

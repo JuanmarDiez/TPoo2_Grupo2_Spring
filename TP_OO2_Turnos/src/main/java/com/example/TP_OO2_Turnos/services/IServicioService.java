@@ -12,4 +12,6 @@ public interface IServicioService {
     public ServicioModel insertOrUpdate(ServicioModel servicioModel);
     
     public boolean remove(int id);
+    
+    public Servicio registrarServicioSiNoExiste(String nombreServicio, int duracion);
 }

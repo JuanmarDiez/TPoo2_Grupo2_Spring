@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.example.TP_OO2_Turnos.converters.TurnoConvert;
+import com.example.TP_OO2_Turnos.entities.Cliente;
+import com.example.TP_OO2_Turnos.entities.Dia;
+import com.example.TP_OO2_Turnos.entities.Empleado;
 import com.example.TP_OO2_Turnos.entities.Turno;
 import com.example.TP_OO2_Turnos.models.TurnoModel;
 import com.example.TP_OO2_Turnos.repositories.ITurnoRepository;
@@ -68,4 +71,27 @@ public class TurnoService implements ITurnoService {
 	public Turno buscarTurnoBD(int nroCliente,int legajo, LocalTime hora, LocalDate fecha, int servicioId, int lugarId) {
 		return turnoRepository.findTurnoPorFiltros(nroCliente, legajo, hora, fecha, servicioId, lugarId);
 	};
+	
+	/*public void registrarTurnoSiNoExiste(Cliente cliente, Empleado empleado, Dia dia, LocalTime hora) {
+        if (!turnoRepository.existsByClienteAndEmpleadoAndDiaAndHora(cliente, empleado, dia, hora)) {
+            Turno turno = new Turno();
+            turno.setCliente(cliente);
+            turno.setEmpleado(empleado);
+            turno.setDia(dia);
+            turno.setHora(hora);
+            turnoRepository.save(turno);
+        }
+    }*/
+	public Turno registrarTurnoSiNoExiste(Cliente cliente, Empleado empleado, Dia dia, LocalTime hora) {
+		Turno turno = turnoRepository.findByClienteAndEmpleadoAndDiaAndHora(cliente, empleado, dia, hora);
+        if (turno == null) {
+            turno = new Turno();
+            turno.setCliente(cliente);
+            turno.setEmpleado(empleado);
+            turno.setDia(dia);
+            turno.setHora(hora);
+            turnoRepository.save(turno);
+        }
+        return turno;
+    }
 }
