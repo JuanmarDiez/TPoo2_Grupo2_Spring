@@ -7,6 +7,8 @@ import java.util.List;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -29,6 +31,7 @@ public class Empleado extends Usuario {
 	private boolean esActivo = true;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="empleado")
+	@JsonBackReference
 	private List<Turno> turnos;
 	
 	@Column(name="createdat")

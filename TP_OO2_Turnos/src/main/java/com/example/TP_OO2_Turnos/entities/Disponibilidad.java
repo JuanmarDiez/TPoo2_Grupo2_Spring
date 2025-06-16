@@ -1,6 +1,9 @@
 package com.example.TP_OO2_Turnos.entities;
 
 import com.example.TP_OO2_Turnos.enums.DiaLaborable;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 
 import java.time.LocalTime;

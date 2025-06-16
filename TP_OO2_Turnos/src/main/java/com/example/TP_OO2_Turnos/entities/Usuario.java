@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,15 +30,16 @@ public class Usuario {
 	
 	@OneToOne
 	@JoinColumn(name = "user_id")
+	@JsonManagedReference
 	protected User user;
 	
-	@Column(name="nombre")
+	@Column(name="nombre", nullable=false)
 	protected String nombre;
 	
-	@Column(name="apellido")
+	@Column(name="apellido", nullable=false)
 	protected String apellido;
 	
-	@Column(name="dni")
+	@Column(name="dni", unique=true, nullable=false)
 	protected int dni; 
 	
 	@Column(name="createdat")
@@ -114,6 +117,13 @@ public class Usuario {
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + ", createdAt="
+				+ createdAt + ", updatedAt=" + updatedAt + "]";
+	}
+	
 	
 	
 }

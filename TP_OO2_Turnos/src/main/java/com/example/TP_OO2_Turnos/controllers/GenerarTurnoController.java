@@ -5,6 +5,7 @@ import java.beans.PropertyEditorSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,7 @@ import com.example.TP_OO2_Turnos.services.IEmpleadoService;
 import com.example.TP_OO2_Turnos.services.ITurnoService;
 
 @Controller
+@PreAuthorize("hasRole('ROLE_USER')")
 @RequestMapping("/generarTurno")
 public class GenerarTurnoController {
 	
@@ -104,10 +106,7 @@ public class GenerarTurnoController {
 	
 	@PostMapping("/turnos")
 	public String createTurno(@ModelAttribute("turno") TurnoModel turnoModel, RedirectAttributes redirectAttributes) {
-		Turno turnoAux = turnoService.buscarTurnoBD(turnoModel.getCliente().getNroCliente(), turnoModel.getEmpleado().getLegajo(), turnoModel.getHora(), diaService.findById(turnoModel.getDia()).getFecha(), diaService.findById(turnoModel.getDia()).getDisponibilidad().getServicio().getId(), diaService.findById(turnoModel.getDia()).getDisponibilidad().getServicio().getId());
-		if(turnoAux !=null) {
-			throw new TurnoIgualException("Ya existe un turno con esos detalles");
-		}else {
+		//Turno turnoAux = turnoService.buscarTurnoBD(turnoModel.getCliente().getNroCliente(), turnoModel.getEmpleado().getLegajo(), turnoModel.getHora(), diaService.findById(turnoModel.getDia()).getFecha(), diaService.findById(turnoModel.getDia()).getDisponibilidad().getServicio().getId(), diaService.findById(turnoModel.getDia()).getDisponibilidad().getServicio().getId());
 		turnoService.insertOrUpdate(turnoModel);
 		EmailModel email = new EmailModel();
 		email.setToUser(emailReceiver);
@@ -115,6 +114,6 @@ public class GenerarTurnoController {
 		email.setMessage("Confirmamos que tu turno para el dia " + diaService.findById(turnoModel.getDia()).getFecha()+ " a las " + turnoModel.getHora() + " ha sido realizado con exito");
 		emailService.sendEmail(email.getToUser(), email.getSubject(), email.getMessage());
 		return "/index";
-		}
+		
 	}
 }

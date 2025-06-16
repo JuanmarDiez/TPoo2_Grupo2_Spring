@@ -52,6 +52,13 @@ public class EmpleadoModel extends UsuarioModel {
 	public void setTurnos(List<Turno> turnos) {
 		this.turnos = turnos;
 	}
+
+	@Override
+	public String toString() {
+		return "EmpleadoModel [legajo=" + legajo + ", fechaDeAlta=" + fechaDeAlta + ", esActivo=" + esActivo
+				+ ", turnos=" + turnos + "]";
+	}
+	
 	
 	
 }

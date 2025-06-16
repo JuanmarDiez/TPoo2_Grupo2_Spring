@@ -3,6 +3,8 @@ package com.example.TP_OO2_Turnos.entities;
 import jakarta.persistence.*;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "lugar")
 public class Lugar {

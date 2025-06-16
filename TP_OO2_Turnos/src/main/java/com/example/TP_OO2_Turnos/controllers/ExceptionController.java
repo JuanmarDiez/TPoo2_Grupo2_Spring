@@ -25,10 +25,10 @@ public class ExceptionController {
 				.body(e.getErrorMessage());
 	}
 	
-	@ExceptionHandler(value = {Exception.class})
+	/*@ExceptionHandler(value = {Exception.class})
 	public ResponseEntity<Object> handlerException(Exception e){
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 				.body("Error en la ejecucion del servicio");
-	}
+	}*/
 	
 }

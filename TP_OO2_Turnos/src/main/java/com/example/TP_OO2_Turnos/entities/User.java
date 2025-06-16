@@ -6,6 +6,9 @@ import java.util.Set;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -25,6 +28,7 @@ public class User {
 	private int id;
 	
 	@OneToOne(mappedBy="user")
+	@JsonBackReference
 	private Usuario usuario;
 	
 	@Email
@@ -46,6 +50,7 @@ public class User {
 	private LocalDateTime updatedAt;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="user")
+	@JsonManagedReference
 	private Set<UserRole> userRoles= new HashSet<UserRole>();
 	
 	public User() {}
@@ -127,6 +132,12 @@ public class User {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", usuario=" + usuario + ", email=" + email + ", clave=" + clave + ", enabled="
+				+ enabled + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", userRoles=" + userRoles + "]";
 	}
 	
 }

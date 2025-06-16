@@ -3,6 +3,9 @@ package com.example.TP_OO2_Turnos.entities;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "dia")
 public class Dia {

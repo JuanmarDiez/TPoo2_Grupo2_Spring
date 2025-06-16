@@ -68,6 +68,12 @@ public class UsuarioModel {
 	public void setDni(int dni) {
 		this.dni = dni;
 	}
+
+	@Override
+	public String toString() {
+		return "UsuarioModel [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + "]";
+	}
+	
 	
 	
 }

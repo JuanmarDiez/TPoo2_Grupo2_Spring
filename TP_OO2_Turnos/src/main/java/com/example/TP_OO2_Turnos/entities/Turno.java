@@ -6,6 +6,9 @@ import java.time.LocalTime;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -24,18 +27,18 @@ public class Turno {
 	private int id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="cliente_id")
+	@JoinColumn(name="cliente_id", nullable= false)
 	private Cliente cliente;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="empleado_id")
+	@JoinColumn(name="empleado_id", nullable= false)
 	private Empleado empleado;
 		
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="dia_id")
+	@JoinColumn(name="dia_id", nullable= false)
 	private Dia dia;
 	
-	@Column(name="hora")
+	@Column(name="hora", nullable= false)
 	private LocalTime hora;
 	
 	@Column(name="createdat")

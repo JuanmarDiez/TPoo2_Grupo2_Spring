@@ -5,12 +5,16 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.TP_OO2_Turnos.converters.ClienteConverter;
 import com.example.TP_OO2_Turnos.dtos.ClienteDTO;
 import com.example.TP_OO2_Turnos.entities.Cliente;
+import com.example.TP_OO2_Turnos.entities.Empleado;
 import com.example.TP_OO2_Turnos.models.ClienteModel;
+import com.example.TP_OO2_Turnos.models.EmpleadoModel;
 import com.example.TP_OO2_Turnos.services.IClienteService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,10 +29,22 @@ public class ClienteRestController {
     @Qualifier("clienteService")
     private IClienteService clienteService;
 
+	@Autowired
+    @Qualifier("clienteConverter")
+    private ClienteConverter clienteConverter;
+
+	
     @GetMapping
     @Operation(summary = "Listar clientes")
-    public ResponseEntity<List<Cliente>> getAll() {
-        return ResponseEntity.ok(clienteService.getAll());
+    public ResponseEntity<List<ClienteModel>> getAll() {
+    	List<ClienteModel> clientes= new ArrayList<ClienteModel>();
+    	List<Cliente> aux= clienteService.getAll();
+    	
+    	for(int i=0;i<aux.size();i++) {
+    		clientes.add(clienteConverter.entityToModel(aux.get(i)));
+    	}
+    	
+    	return new ResponseEntity<List<ClienteModel>>(clientes, HttpStatus.OK);
     }
 
     @PostMapping

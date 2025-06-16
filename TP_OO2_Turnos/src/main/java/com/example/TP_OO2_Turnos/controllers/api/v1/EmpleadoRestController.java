@@ -1,14 +1,18 @@
 package com.example.TP_OO2_Turnos.controllers.api.v1;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.TP_OO2_Turnos.converters.EmpleadoConverter;
 import com.example.TP_OO2_Turnos.entities.Empleado;
 import com.example.TP_OO2_Turnos.models.EmpleadoModel;
+import com.example.TP_OO2_Turnos.models.ServicioModel;
 import com.example.TP_OO2_Turnos.services.IEmpleadoService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,11 +26,22 @@ public class EmpleadoRestController {
     @Autowired
     @Qualifier("empleadoService")
     private IEmpleadoService empleadoService;
+    
+    @Autowired
+    @Qualifier("empleadoConverter")
+    private EmpleadoConverter empleadoConverter;
 
     @GetMapping
     @Operation(summary = "Listar empleados")
-    public ResponseEntity<List<Empleado>> getAll() {
-        return ResponseEntity.ok(empleadoService.getAll());
+    public ResponseEntity<List<EmpleadoModel>> getAll() {
+    	List<EmpleadoModel> empleados= new ArrayList<EmpleadoModel>();
+    	List<Empleado> aux= empleadoService.getAll();
+    	
+    	for(int i=0;i<aux.size();i++) {
+    		empleados.add(empleadoConverter.entityToModel(aux.get(i)));
+    	}
+    	
+    	return new ResponseEntity<List<EmpleadoModel>>(empleados, HttpStatus.OK);
     }
 
     @PostMapping
