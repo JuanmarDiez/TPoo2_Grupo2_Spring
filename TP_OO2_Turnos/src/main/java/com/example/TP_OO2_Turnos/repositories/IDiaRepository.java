@@ -8,11 +8,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.example.TP_OO2_Turnos.entities.Dia;
+import com.example.TP_OO2_Turnos.entities.Disponibilidad;
 
 @Repository("diaRepository")
 public interface IDiaRepository extends JpaRepository<Dia, Serializable> {
     public abstract Dia findById(int id);
     public abstract Dia findByFecha(LocalDate fecha);
     public abstract List<Dia> findByFechaBetween(LocalDate inicio, LocalDate fin);
-	
+    boolean existsByFechaAndDisponibilidad(LocalDate fecha, Disponibilidad disponibilidad);
+    Dia findByFechaAndDisponibilidad(LocalDate fecha, Disponibilidad disponibilidad);
+    
 }

@@ -43,4 +43,18 @@ public class ServicioService implements IServicioService {
             return false;
         }
     }
+    
+    public Servicio registrarServicioSiNoExiste(String nombreServicio, int duracion) {
+        Servicio servicio = servicioRepository.findByNombreServicio(nombreServicio);
+        
+        if (servicio == null) {
+            servicio = new Servicio();
+            servicio.setNombreServicio(nombreServicio);
+            servicio.setDuracionServicio(duracion);
+            servicio = servicioRepository.save(servicio);
+        }
+
+        return servicio;
+    }
+
 }

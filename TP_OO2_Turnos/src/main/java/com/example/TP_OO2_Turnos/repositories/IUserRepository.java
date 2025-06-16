@@ -15,4 +15,6 @@ public interface IUserRepository extends JpaRepository<User, Serializable>{
 	@Query("SELECT u FROM User u JOIN FETCH u.userRoles WHERE u.email = (:email)")
 	public abstract User findByEmailAndFetchUserRolesEagerly(@Param("email") String email);
 	
+	public abstract boolean existsByEmail(String email);
+	
 }

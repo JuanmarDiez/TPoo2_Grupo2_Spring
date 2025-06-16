@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.example.TP_OO2_Turnos.entities.Dia;
+import com.example.TP_OO2_Turnos.entities.Disponibilidad;
 import com.example.TP_OO2_Turnos.models.DiaModel;
 
 public interface IDiaService {
@@ -19,5 +20,7 @@ public interface IDiaService {
     public DiaModel findByFecha(LocalDate fecha);
     
     public List<DiaModel> findByFechaBetween(LocalDate inicio, LocalDate fin);
+    
+    public Dia registrarDiaSiNoExiste(LocalDate fecha, Disponibilidad disponibilidad);
 
 }

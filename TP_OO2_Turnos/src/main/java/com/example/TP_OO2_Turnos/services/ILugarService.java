@@ -14,4 +14,6 @@ public interface ILugarService {
     public boolean remove(int id);
     
     public Lugar findById(int id);
+    
+    public Lugar registrarLugarSiNoExiste(String calle, String localidad);
 }
