@@ -56,6 +56,9 @@ public interface ITurnoRepository extends JpaRepository<Turno, Serializable> {
             @Param("lugarId") int lugarId
         );
     // boolean existsByClienteAndEmpleadoAndDiaAndHora(Cliente cliente, Empleado empleado, Dia dia, LocalTime hora);
-    Turno findByClienteAndEmpleadoAndDiaAndHora(Cliente cliente, Empleado empleado, Dia dia, LocalTime hora);
+    public abstract Turno findByClienteAndEmpleadoAndDiaAndHora(Cliente cliente, Empleado empleado, Dia dia, LocalTime hora);
+    
+    @Query("SELECT t FROM Turno t WHERE t.dia = :dia AND t.hora = :hora")
+    public abstract Turno findByDiaAndHora(Dia dia, LocalTime hora);
 
 }

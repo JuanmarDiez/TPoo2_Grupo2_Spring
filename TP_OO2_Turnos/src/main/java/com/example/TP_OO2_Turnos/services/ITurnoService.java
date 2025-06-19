@@ -30,4 +30,6 @@ public interface ITurnoService {
 	//public void registrarTurnoSiNoExiste(Cliente cliente, Empleado empleado, Dia dia, LocalTime hora);
 	
 	public Turno registrarTurnoSiNoExiste(Cliente cliente, Empleado empleado, Dia dia, LocalTime hora);
+	
+	public Turno findByDiaAndHora(Dia dia, LocalTime hora);
 }

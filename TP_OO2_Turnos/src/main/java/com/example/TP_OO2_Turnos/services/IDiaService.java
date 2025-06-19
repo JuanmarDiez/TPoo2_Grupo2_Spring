@@ -21,6 +21,8 @@ public interface IDiaService {
     
     public List<DiaModel> findByFechaBetween(LocalDate inicio, LocalDate fin);
     
-    public Dia registrarDiaSiNoExiste(LocalDate fecha, Disponibilidad disponibilidad);
+    public Dia findByFechaAndDisponibilidad(LocalDate fecha, Disponibilidad disponibilidad);
+    
+    //public DiaModel registrarDiaSiNoExiste(LocalDate fecha, Disponibilidad disponibilidad);
 
 }

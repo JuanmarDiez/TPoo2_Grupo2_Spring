@@ -71,16 +71,21 @@ public class DiaService implements IDiaService {
 		return diaRepository.findById(id);
 	}
     
-    public Dia registrarDiaSiNoExiste(LocalDate fecha, Disponibilidad disponibilidad) {
-        Dia dia = diaRepository.findByFechaAndDisponibilidad(fecha, disponibilidad);
+   /* public DiaModel registrarDiaSiNoExiste(LocalDate fecha, Disponibilidad disponibilidad) {
+        DiaModel dia = diaRepository.findByFechaAndDisponibilidad(fecha, disponibilidad);
         if (dia == null) {
-            dia = new Dia();
+            dia = new DiaModel();
             dia.setFecha(fecha);
             dia.setDisponibilidad(disponibilidad);
             dia = diaRepository.save(dia);
         }
         return dia;
-    }
+    }*/
+
+	@Override
+	public Dia findByFechaAndDisponibilidad(LocalDate fecha, Disponibilidad disponibilidad) {
+		return diaRepository.findByFechaAndDisponibilidad(fecha, disponibilidad);
+	}
 
     
 }

@@ -50,10 +50,13 @@
                         <label for="hora" class="form-label">
                             <i class="bi bi-clock"></i> Hora del Turno
                         </label>
-                        <div class="time-input-container">
-                            <input type="time" class="form-control" id="hora" th:field="*{hora}" required>
-                        </div>
-                        <small class="text-muted">Seleccione una hora</small>
+                       <select class="form-select" id="hora" th:field="*{hora}" required>
+                            <option value="" disabled selected>Seleccione un horario...</option>
+                            <option th:each="hora : ${horarios}" 
+                                th:value="${hora}"
+                                th:text="${hora}">
+                            </option>
+                        </select>
                     </div>
                     
                     <!-- Campo Empleado -->

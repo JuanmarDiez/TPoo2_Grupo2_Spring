@@ -94,4 +94,9 @@ public class TurnoService implements ITurnoService {
         }
         return turno;
     }
+
+	@Override
+	public Turno findByDiaAndHora(Dia dia, LocalTime hora) {
+		return turnoRepository.findByDiaAndHora(dia, hora);
+	}
 }

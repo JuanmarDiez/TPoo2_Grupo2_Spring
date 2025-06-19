@@ -1,6 +1,9 @@
 package com.example.TP_OO2_Turnos.controllers;
 
 import java.beans.PropertyEditorSupport;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.TP_OO2_Turnos.converters.DiaConverter;
+import com.example.TP_OO2_Turnos.entities.Dia;
 import com.example.TP_OO2_Turnos.entities.Disponibilidad;
 import com.example.TP_OO2_Turnos.entities.Turno;
 import com.example.TP_OO2_Turnos.exception.TurnoIgualException;
@@ -45,6 +50,10 @@ public class GenerarTurnoController {
 	@Autowired
 	@Qualifier("diaService")
 	private IDiaService diaService;
+	
+	@Autowired
+	@Qualifier("diaConverter")
+	private DiaConverter diaConverter;
 	
 	@Autowired
 	@Qualifier("disponibilidadService")
@@ -87,16 +96,40 @@ public class GenerarTurnoController {
 	
 	@PostMapping("/elegirDia")
 	public String createDia(@ModelAttribute("dia") DiaModel diaModel,RedirectAttributes redirectAttributes) {	
+		Dia diaExistente = diaService.findByFechaAndDisponibilidad(diaModel.getFecha(), diaModel.getDisponibilidad());
+		if(diaExistente == null) {
 		diaModel = diaService.insertOrUpdate(diaModel);
 		redirectAttributes.addAttribute("diaId", diaModel.getId());
-
+		}
+		else {
+			DiaModel diaM = diaConverter.entityToModel(diaExistente);
+			redirectAttributes.addAttribute("diaId", diaM.getId());
+		}
 		return "redirect:/generarTurno/turnos";
 	}
 	
 	@GetMapping("/turnos")
 	public ModelAndView turno(@RequestParam("diaId") int diaId) {
+		
+		List<LocalTime> horarios = new ArrayList<LocalTime>();
+		Disponibilidad disponibilidad = disponibilidadService.findById(diaService.findById(diaId).getDisponibilidad().getId());
+		Turno turnoExistente;
+	
+		LocalTime i = disponibilidad.getHoraInicio();
+		while (i.isBefore(disponibilidad.getHoraFin())) {
+			
+			turnoExistente = turnoService.findByDiaAndHora(diaService.findById(diaId), i);
+			
+			if(turnoExistente == null) {
+				horarios.add(i);
+			}
+		    i = i.plusMinutes(disponibilidad.getServicio().getDuracionServicio());
+		}
+		
+		
 		ModelAndView mav = new ModelAndView("turno/turno");
 		mav.addObject("dia", diaService.findById(diaId));
+		mav.addObject("horarios",horarios);
 		mav.addObject("empleados",empleadoService.getAll());
 		mav.addObject("clientes",clienteService.getAll());
 		mav.addObject("turno",new TurnoModel());
