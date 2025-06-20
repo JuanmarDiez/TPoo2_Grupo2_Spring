@@ -63,7 +63,7 @@ public class TurnoController {
 	
 	@GetMapping("/turnos")
 	public ModelAndView turno(@RequestParam("diaId") int diaId) {
-		ModelAndView mav = new ModelAndView("turno/turno");
+		ModelAndView mav = new ModelAndView("");
 		mav.addObject("dia", diaService.findById(diaId));
 		mav.addObject("empleados",empleadoService.getAll());
 		mav.addObject("clientes",clienteService.getAll());
