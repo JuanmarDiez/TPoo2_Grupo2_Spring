@@ -20,7 +20,7 @@ import jakarta.persistence.Table;
 @PrimaryKeyJoinColumn(name="usuario_id")
 public class Cliente extends Usuario {
 	
-	@Column(name="nroCliente",nullable=false)
+	@Column(name="nroCliente",nullable=false,unique=true)
 	private int nroCliente;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="cliente")

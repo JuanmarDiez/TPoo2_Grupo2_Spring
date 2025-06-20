@@ -21,14 +21,14 @@ import jakarta.persistence.Table;
 @PrimaryKeyJoinColumn(name="usuario_id")
 public class Empleado extends Usuario {
 	
-	@Column(name="legajo",nullable = false)
+	@Column(name="legajo",nullable = false, unique=true)
 	private int legajo;
 	
-	@Column(name="fechaDeAlta")
+	@Column(name="fechaDeAlta", nullable = false)
 	private LocalDate fechaDeAlta;
 	
-	@Column(name="esActivo")
-	private boolean esActivo = true;
+	@Column(name="esActivo", nullable =false)
+	private boolean esActivo;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="empleado")
 	@JsonBackReference
@@ -49,7 +49,7 @@ public class Empleado extends Usuario {
 		super(id, nombre, apellido, dni, user);
 		this.legajo=legajo;
 		this.fechaDeAlta=fechaDeAlta;
-		this.esActivo=esActivo;
+		this.esActivo=true;
 	}
 
 	public int getLegajo() {
