@@ -96,6 +96,7 @@ public class GenerarTurnoController {
 	
 	@PostMapping("/elegirDia")
 	public String createDia(@ModelAttribute("dia") DiaModel diaModel,RedirectAttributes redirectAttributes) {	
+		//Corroborar si existe una clase dia para evitar duplicacion
 		Dia diaExistente = diaService.findByFechaAndDisponibilidad(diaModel.getFecha(), diaModel.getDisponibilidad());
 		if(diaExistente == null) {
 		diaModel = diaService.insertOrUpdate(diaModel);
@@ -111,8 +112,10 @@ public class GenerarTurnoController {
 	@GetMapping("/turnos")
 	public ModelAndView turno(@RequestParam("diaId") int diaId) {
 		
+		//Creacion de la seleccion de turnos para evitar que se elija un turno no permitido
 		List<LocalTime> horarios = new ArrayList<LocalTime>();
 		Disponibilidad disponibilidad = disponibilidadService.findById(diaService.findById(diaId).getDisponibilidad().getId());
+		//Corroborar que no haya un turno existente en ese dia y horario
 		Turno turnoExistente;
 	
 		LocalTime i = disponibilidad.getHoraInicio();
