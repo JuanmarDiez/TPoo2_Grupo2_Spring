@@ -36,15 +36,15 @@ public class ClienteRestController {
 	
     @GetMapping
     @Operation(summary = "Listar clientes")
-    public ResponseEntity<List<ClienteModel>> getAll() {
-    	List<ClienteModel> clientes= new ArrayList<ClienteModel>();
+    public ResponseEntity<List<ClienteDTO>> getAll() {
+    	List<ClienteDTO> clientes= new ArrayList<ClienteDTO>();
     	List<Cliente> aux= clienteService.getAll();
     	
     	for(int i=0;i<aux.size();i++) {
-    		clientes.add(clienteConverter.entityToModel(aux.get(i)));
+    		clientes.add(clienteConverter.entityToDTO(aux.get(i)));
     	}
     	
-    	return new ResponseEntity<List<ClienteModel>>(clientes, HttpStatus.OK);
+    	return new ResponseEntity<List<ClienteDTO>>(clientes, HttpStatus.OK);
     }
 
     @PostMapping

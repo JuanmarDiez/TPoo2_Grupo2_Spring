@@ -13,6 +13,6 @@ public class ServicioConverter {
     }
 
     public Servicio modelToEntity(ServicioModel model) {
-        return new Servicio(model.getId(), model.getNombreServicio(), model.getDuracionServicio());
+        return new Servicio(model.id(), model.nombreServicio(), model.duracionServicio());
     }
 }

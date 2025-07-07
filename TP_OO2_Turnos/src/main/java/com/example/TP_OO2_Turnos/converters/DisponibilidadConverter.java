@@ -15,18 +15,19 @@ public class DisponibilidadConverter {
             disponibilidad.getServicio(),
             disponibilidad.getHoraInicio(),
             disponibilidad.getHoraFin(),
-            disponibilidad.getDiasLaborables()
+            disponibilidad.getDiasLaborables(),
+            disponibilidad.getDias()
         );
     }
 
     public Disponibilidad modelToEntity(DisponibilidadModel model) {
         return new Disponibilidad(
-            model.getId(),
-            model.getLugar(),
-            model.getServicio(),
-            model.getHoraInicio(),
-            model.getHoraFin(),
-            model.getDiasLaborables()
+            model.id(),
+            model.lugar(),
+            model.servicio(),
+            model.horaInicio(),
+            model.horaFin(),
+            model.diasLaborables()
         );
     }
 }

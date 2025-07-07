@@ -4,9 +4,11 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 public record ClienteDTO(
+	@NotBlank int id,
     @NotBlank String nombre,
     @NotBlank String apellido,
     @Email @NotBlank String email,
     @NotBlank String clave,
-    @NotBlank String dni
+    @NotBlank int dni,
+    @NotBlank int nroCliente
 ) {}

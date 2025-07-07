@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.example.TP_OO2_Turnos.converters.ServicioConverter;
+import com.example.TP_OO2_Turnos.entities.Cliente;
 import com.example.TP_OO2_Turnos.entities.Servicio;
 import com.example.TP_OO2_Turnos.models.ServicioModel;
 import com.example.TP_OO2_Turnos.repositories.IServicioRepository;
@@ -56,5 +57,11 @@ public class ServicioService implements IServicioService {
 
         return servicio;
     }
+
+	@Override
+	public Servicio findById(int id) throws Exception {
+		
+		return servicioRepository.findById(id);
+	}
 
 }

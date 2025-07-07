@@ -13,6 +13,6 @@ public class LugarConverter {
     }
 
     public Lugar modelToEntity(LugarModel model) {
-        return new Lugar(model.getId(), model.getCalle(), model.getLocalidad());
+        return new Lugar(model.id(), model.calle(), model.localidad());
     }
 }
