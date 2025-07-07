@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.TP_OO2_Turnos.converters.EmpleadoConverter;
 import com.example.TP_OO2_Turnos.entities.Empleado;
+import com.example.TP_OO2_Turnos.dtos.EmpleadoDTO;
 import com.example.TP_OO2_Turnos.models.EmpleadoModel;
 import com.example.TP_OO2_Turnos.models.ServicioModel;
 import com.example.TP_OO2_Turnos.services.IEmpleadoService;
@@ -33,15 +34,15 @@ public class EmpleadoRestController {
 
     @GetMapping
     @Operation(summary = "Listar empleados")
-    public ResponseEntity<List<EmpleadoModel>> getAll() {
-    	List<EmpleadoModel> empleados= new ArrayList<EmpleadoModel>();
+    public ResponseEntity<List<EmpleadoDTO>> getAll() {
+    	List<EmpleadoDTO> empleados= new ArrayList<EmpleadoDTO>();
     	List<Empleado> aux= empleadoService.getAll();
     	
     	for(int i=0;i<aux.size();i++) {
-    		empleados.add(empleadoConverter.entityToModel(aux.get(i)));
+    		empleados.add(empleadoConverter.entityToDTO(aux.get(i)));
     	}
     	
-    	return new ResponseEntity<List<EmpleadoModel>>(empleados, HttpStatus.OK);
+    	return new ResponseEntity<List<EmpleadoDTO>>(empleados, HttpStatus.OK);
     }
 
     @PostMapping

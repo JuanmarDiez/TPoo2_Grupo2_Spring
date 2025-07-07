@@ -7,11 +7,13 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record EmpleadoDTO(
+	@NotBlank int id,
     @NotBlank String nombre,
     @NotBlank String apellido,
     @Email @NotBlank String email,
     @NotBlank String clave,
-    @NotBlank String dni,
+    @NotBlank int dni,
+    @NotBlank int legajo,
     @NotNull LocalDate fechaDeAlta,
     @NotNull Boolean esActivo
 ) {}
