@@ -36,9 +36,11 @@ public class Disponibilidad {
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "disponibilidad_dias_laborables", joinColumns = @JoinColumn(name = "disponibilidad_id"))
     @Column(name = "dia_laborable")
+    @JsonBackReference
     private Set<DiaLaborable> diasLaborables;
 
     @OneToMany(mappedBy = "disponibilidad", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
     private List<Dia> dias;
 
     public Disponibilidad() {}

@@ -20,6 +20,7 @@ public class Lugar {
     private String localidad;
 
     @OneToMany(mappedBy = "lugar", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
     private List<Disponibilidad> disponibilidades;
 
     public Lugar() {}

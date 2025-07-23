@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.TP_OO2_Turnos.converters.EmpleadoConverter;
@@ -20,6 +21,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("/api/v1/empleados")
 @Tag(name = "Empleados", description = "Operaciones relacionadas con los empleados del sistema")
 public class EmpleadoRestController {
@@ -46,7 +48,7 @@ public class EmpleadoRestController {
     }
 
     @PostMapping
-    @Operation(summary = "Crear empleado")
+    @Operation(summary = "Crear o editar empleado")
     public ResponseEntity<EmpleadoModel> create(@RequestBody EmpleadoModel model) {
         EmpleadoModel nuevo = empleadoService.insertOrUpdate(model);
         return ResponseEntity.ok(nuevo);
