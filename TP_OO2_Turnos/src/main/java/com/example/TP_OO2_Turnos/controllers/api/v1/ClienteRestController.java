@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.TP_OO2_Turnos.converters.ClienteConverter;
@@ -22,6 +23,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("/api/v1/clientes")
 @Tag(name = "Clientes", description = "Operaciones relacionadas con los clientes del sistema")
 public class ClienteRestController {
@@ -48,7 +50,7 @@ public class ClienteRestController {
     }
 
     @PostMapping
-    @Operation(summary = "Crear cliente")
+    @Operation(summary = "Crear o editar cliente")
     public ResponseEntity<ClienteModel> create(@RequestBody ClienteModel model) {
         ClienteModel nuevo = clienteService.insertOrUpdate(model);
         return ResponseEntity.ok(nuevo);

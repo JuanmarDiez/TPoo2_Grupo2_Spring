@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/v1/servicios")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 @Tag(name = "Servicios", description = "Operaciones relacionadas con los servicios del sistema")
 public class ServicioRestController {
 
@@ -34,6 +36,7 @@ public class ServicioRestController {
     @Autowired
     @Qualifier("servicioConverter")
     private ServicioConverter servicioConverter;
+
 
     @GetMapping
     @Operation(summary = "Listar servicios")
@@ -47,14 +50,14 @@ public class ServicioRestController {
     	
     	return new ResponseEntity<List<ServicioModel>>(servicios, HttpStatus.OK);
     }
-
+    
     @PostMapping
-    @Operation(summary = "Crear servicio")
+    @Operation(summary = "Crear o editar servicio")
     public ResponseEntity<ServicioModel> create(@RequestBody ServicioModel model) {
         ServicioModel nuevo = servicioService.insertOrUpdate(model);
         return ResponseEntity.ok(nuevo);
     }
-
+    
     @DeleteMapping("/{id}")
     @Operation(summary = "Eliminar Servicio")
     public ResponseEntity<String> delete(@PathVariable int id) {
@@ -63,7 +66,7 @@ public class ServicioRestController {
             ? ResponseEntity.ok("Servicio eliminado")
             : ResponseEntity.status(404).body("No se pudo eliminar");
     }
-
+    
     @GetMapping("/{id}")
     @Operation(summary = "Buscar por id")
     public ResponseEntity<Servicio> find(@PathVariable int id) throws Exception {

@@ -20,6 +20,7 @@ public class Servicio {
     private int duracionServicio; // en minutos, por ejemplo
 
     @OneToMany(mappedBy = "servicio", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
     private List<Disponibilidad> disponibilidades;
 
     public Servicio() {}
